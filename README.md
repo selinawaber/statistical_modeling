@@ -61,7 +61,7 @@ our data points every simulation. However, the mean of the estimates is roughly 
 - subset in trianing and validation (80\% and 20\%) and fit polynomial model. 
 - repeat subsetting 100 times
 - visualize the fits
-- analyse residual sum of squares
+- analyse residual sum of squares $RSS=\sum_{i=1}^n(y_i-f(x_i))^2 with yi=ith value of the variable to be predicted, f(xi)=predicted value of yi
 
 
 ```R
@@ -94,7 +94,7 @@ for(degree in 1:8){
         out <- lm(coal ~ poly(year, degree), data=coal_df, subset = dt)
         
         res_valid <- predict(out, coal_df[-dt,] )
-        rss[i , degree] <- sum((res_valid - coal_df$coal[-dt])^2)
+        rss[i , degree] <- sum((res_valid - coal_df$coal[-dt])^2) #RSS= SUM(yi-f(xi))^2
         
         lines( year[dt], out$fitted.values, col='blue')
     
@@ -109,6 +109,11 @@ for(degree in 1:8){
 par(mfrow=c(1,1)
 
 which.min(apply(rss,MARGIN = 2,median)) # 8 lowest median rss
+
+#apply() takes Data frame or matrix as an input and gives output in vector, list or array. Apply function in R is primarily used to avoid explicit uses #of loop constructs. It is the most basic of all collections can be used over a matrice.
+#MARGIN=1`: the manipulation is performed on rows
+#MARGIN=2`: the manipulation is performed on columns
+
 
 boxplot(log(rss), main = 'log(rss) by polynomial degree')
 abline(h = c(mean(log(rss)),median(log(rss))), col=c('blue','red'))
