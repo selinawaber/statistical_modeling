@@ -2,7 +2,7 @@
 
 ## Principal Component Analysis
 
-### (Lecture 4) Sampling from a bivariate normal distrbution:
+### Sampling from a bivariate normal distrbution:
 
 ```R
 require(mvtnorm)
@@ -66,7 +66,7 @@ fviz_pca_ind(pca,
 ```
 
 ### Classical biplot:
-```{r}
+```R
 biplot( pca, scale = 0)
 
 ## to plot other principal components, use, for example:
@@ -80,7 +80,7 @@ fviz_pca_biplot(pca, repel = TRUE,
 ```
 
 ###  Reconstruction of the data in PCA
-```{r}
+```R
 mean_jobs = colMeans(jobs)
 pca <- prcomp(jobs, center = FALSE, scale = FALSE) # no scaling for simplicity of the example
 nComp = 9
