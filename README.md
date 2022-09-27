@@ -1,5 +1,5 @@
 # Statistical Modeling
 
-## [Resampling and Model Validation](resampling_and_model_validation.md)
+## [Resampling and Model Validation](Resampling_and_Model_Validation.md)
 
 
