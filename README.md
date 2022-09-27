@@ -68,7 +68,7 @@ our data points every simulation. However, the mean of the estimates is roughly 
 require(fma)
 bicoal
 
-str( bicoal, strict.width=’cut’) # bicoal is a ’ts’ object.
+str( bicoal, strict.width='cut') # bicoal is a ’ts’ object.
 year <- c(time(bicoal))
 coal <- as.numeric( bicoal)
 coal_df <- data.frame(coal=coal, year = year)
@@ -84,7 +84,7 @@ par(mfrow=c(2,4))
 
 set.seed(1)
 for(degree in 1:8){
-    plot(year,coal, main=paste0(’degree of poly: ’,degree))
+    plot(year,coal, main=paste0('degree of poly: ',degree))
     for(i in 1:100){
     
         dt<-sort(sample(nrow(data), nrow(data)*.8)) #test and training set split
@@ -96,22 +96,22 @@ for(degree in 1:8){
         res_valid <- predict(out, coal_df[-dt,] )
         rss[i , degree] <- sum((res_valid - coal_df$coal[-dt])^2)
         
-        lines( year[dt], out$fitted.values, col=’blue’)
+        lines( year[dt], out$fitted.values, col='blue')
     
     }
 
 }
 
 ```
-![Exercise 1 Aufgabe 2](Images/00003e.png?raw=true "Exercise 1 Aufgabe 2")
+![Exercise 1 Aufgabe 2](Images/00002b.png?raw=true "Exercise 1 Aufgabe 2")
 
 ```R
 par(mfrow=c(1,1)
 
 which.min(apply(rss,MARGIN = 2,median)) # 8 lowest median rss
 
-boxplot(log(rss), main = ’log(rss) by polynomial degree’)
-abline(h = c(mean(log(rss)),median(log(rss))), col=c(’blue’,’red’))
+boxplot(log(rss), main = 'log(rss) by polynomial degree')
+abline(h = c(mean(log(rss)),median(log(rss))), col=c('blue','red'))
 
 ```
 Based on the rss criteria, a model with a polynomial degree of 7 would be the ’best’ model.
