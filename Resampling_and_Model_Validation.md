@@ -3,6 +3,29 @@
 ## Resampling and Model Validation
 
 
+### Bootstrap
+
+- Bootstrap is a resampling method where large numbers of samples of the same size are repeatedly drawn, with replacement, from a single original sample.
+- By repeatedly sampling with replacement, bootstrap creates the resulting samples distribution a Gaussian distribution, which makes statistical inference (e.g., constructing a Confidence Interval) possible.
+
+Bootstrap:
+- 1) decide how many bootstrap samples to perform
+- 2) what is the sample size?
+- 3) for each bootstrap sample: draw a sample with replacement with the chosen size and calculate the statistic of interest for that sample
+- 4) calculate the mean of the calculated sample statistics
+
+
+### Cross Validation
+
+```R
+# package to compute
+# cross - validation methods
+library(caret)
+???
+
+
+```
+
 ### Resampling
 
 Linear regression $Y_i = \beta_0 + \beta_1 x_i + \epsilon_i$ with $\epsilon_i \sim Normal(0,\sigma^2)$ and $X_i \sim Normal(\mu, \sigma_x^2). $X_i$ and $\epsilon_i$ are independent.
@@ -125,3 +148,71 @@ Based on the rss criteria, a model with a polynomial degree of 7 would be the â€
 ![Exercise 1 Aufgabe 2b](Images/00002f.png?raw=true "Exercise 1 Aufgabe 2b")
 
 
+### Empirical density of Variance with underlying Gaussian distirbution
+
+```R
+set.seed(12)
+N <- 10000
+vars <- numeric(N)
+for (i in c(1:N)){
+  samples <- rnorm(n = 5, mean = 0, sd = 1)
+  vars[i] <- var(samples)
+}
+hist(vars, prob = TRUE,  breaks = 50)
+```
+### Empirical density of sigma^2 with underlying Gaussian and Poisson distributions. 
+### True mean and sample mean indicated.
+
+```R
+par(mfrow=c(1,2))
+n <- 10         # sample size
+R <- 1000       # result weakly dependents on R, histograms get smoother
+set.seed( 16)   # for reproducibility
+variance <- 2
+sigma2s <- numeric( R)
+for (i in 1:R) {
+    x <- rnorm(n, mean=0, sd=sqrt(variance)) # sampling from X ~ N(0,2)
+    sigma2s[i] <- sum( ( x-mean(x))^2)/n     # manual calculation of variance
+}
+hist( sigma2s, prob=TRUE, main='', ylim=c(0,.6), xlim=c(0,8))
+lines( density(sigma2s))
+abline( v=c(variance, mean(sigma2s)), col=2:3)
+variance - mean( sigma2s)  # theoretical value is variance/n, here 0.2
+
+# similar for Poisson: `x <- rpois(n, variance)`, e.g., X ~ Pois( 2)
+for (i in 1:R) {
+    x <- rpois(n, variance) # sampling from Pois(2)
+    sigma2s[i] <- sum( ( x-mean(x))^2)/n
+}
+hist( sigma2s, prob=TRUE, main='', ylim=c(0,.6), xlim=c(0,8))
+abline( v=c(variance, mean(sigma2s)), col=2:3)
+lines( density(sigma2s))
+```
+
+### Cross-Validation
+
+```R
+#???????????????????
+```
+
+### Bootstrap
+
+```{r }
+set.seed(14)    # here bootstrap results do not depend much on this seed
+R <- 9999       # nr of replicates
+sam <- data$x/data$y  # ratio
+
+ratio <- numeric( R)
+for (i in 1:R){  # try to vectorize this loop
+    ratio[i] <- mean( sample( sam, replace=TRUE)) 
+    }
+hist( ratio, prob=TRUE, main='')
+lines( density(ratio))
+curve( dnorm(x, mean=mean(ratio), sd=sd(ratio)), add=TRUE, col='red')
+abline( v=c(mean(sam), mean(ratio)), col=c(4,3), lty=c(1,2))
+```
+### Parametric bootstrap distribution of the waiting time
+
+```R
+#?????????????????????????
+```
