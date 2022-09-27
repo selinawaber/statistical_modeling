@@ -3,7 +3,7 @@
 ## Resampling and Model Validation
 
 
-### Bootstrap
+### Resampling
 
 Linear regression $Y_i = \beta_0 + \beta_1 x_i + \epsilon_i$ with $\epsilon_i \sim Normal(0,\sigma^2)$ and $X_i \sim Normal(\mu, \sigma_x^2). $X_i$ and $\epsilon_i$ are independent.
 
@@ -105,4 +105,13 @@ for(degree in 1:8){
 ```
 ![Exercise 1 Aufgabe 2](Images/00003e.png?raw=true "Exercise 1 Aufgabe 2")
 
+```R
+par(mfrow=c(1,1)
 
+which.min(apply(rss,MARGIN = 2,median)) # 8 lowest median rss
+
+boxplot(log(rss), main = ’log(rss) by polynomial degree’)
+abline(h = c(mean(log(rss)),median(log(rss))), col=c(’blue’,’red’))
+
+```
+Based on the rss criteria, a model with a polynomial degree of 7 would be the ’best’ model.
