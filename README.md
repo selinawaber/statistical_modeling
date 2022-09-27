@@ -7,4 +7,4 @@
 
 ### Subsubtitle
 
-$\sum^n_{i=1}$
+$$\sum_{i=1}^n = x$$
