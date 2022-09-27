@@ -111,7 +111,7 @@ Unsurprisingly, the variability in the estimates increases as we introduce more 
 - subset in trianing and validation (80\% and 20\%) and fit polynomial model. 
 - repeat subsetting 100 times
 - visualize the fits
-- analyse residual sum of squares $RSS=\sum_{i=1}^n(y_i-f(x_i))^2 with yi=ith value of the variable to be predicted, f(xi)=predicted value of yi
+- analyse residual sum of squares $RSS=\sum_{i=1}^n(y_i-f(x_i))^2$ with yi=ith value of the variable to be predicted, f(xi)=predicted value of yi
 
 
 ```R
