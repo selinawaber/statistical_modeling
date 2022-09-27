@@ -17,11 +17,39 @@ Bootstrap:
 
 ### Cross Validation
 
+-The basic idea, behind cross-validation techniques, consists of dividing the data into two sets: the training set and the test/validation set
+
+
 ```R
 # package to compute
 # cross - validation methods
 library(caret)
-???
+
+set.seed(1)
+ 
+# creating training data as 80% of the dataset
+random_sample <- createDataPartition(data$x, p = 0.8, list = FALSE)
+ 
+# generating training dataset from the random_sample
+training_dataset  <- data[random_sample, ]
+ 
+# generating testing dataset from rows which are not included in random_sample
+testing_dataset <- data[-random_sample, ]
+ 
+# Building the model
+ 
+# training the model by assigning sales column
+# as target variable and rest other columns
+# as independent variables
+model <- lm(x ~., data = training_dataset)
+ 
+# predicting the target variable
+predictions <- predict(model, testing_dataset)
+ 
+# computing model performance metrics
+data.frame( R2 = R2(predictions, testing_dataset$x),
+            RMSE = RMSE(predictions, testing_dataset$x),
+            MAE = MAE(predictions, testing_dataset $x))
 
 
 ```
