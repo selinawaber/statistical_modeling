@@ -115,3 +115,9 @@ abline(h = c(mean(log(rss)),median(log(rss))), col=c(’blue’,’red’))
 
 ```
 Based on the rss criteria, a model with a polynomial degree of 7 would be the ’best’ model.
+
+
+
+![Exercise 1 Aufgabe 2b](Images/00002f.png.png?raw=true "Exercise 1 Aufgabe 2b")
+
+
