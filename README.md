@@ -3,7 +3,7 @@
 ## Resampling and Model Validation
 
 
-###Bootstrap
+### Bootstrap
 
 Linear regression $Y_i = \beta_0 + \beta_1 x_i + \epsilon_i$ with $\epsilon_i \sim Normal(0,\sigma^2)$ and $X_i \sim Normal(\mu, \sigma_x^2). $X_i$ and $\epsilon_i$ are independent.
 
@@ -32,12 +32,3 @@ legend("topleft", legend=c("True", "Estimated"), lty=1:2)
 
 
 ```
-
-
-
-
-### Subsubtitle
-
-$$\sum_{i=1}^n = x$$
-
-$$ 1+1=2$$
