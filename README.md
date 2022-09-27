@@ -1,5 +1,5 @@
 # Statistical Modeling
 
 ## [Resampling and Model Validation](Resampling_and_Model_Validation.md)
-
+## [Principal Component Analysis](Principal_Component_Analysis.md)
 
