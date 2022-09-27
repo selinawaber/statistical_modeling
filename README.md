@@ -7,4 +7,4 @@
 
 ### Subsubtitle
 
-$\sum_{i=1}^n$
+$\sum^n_{i=1}$
