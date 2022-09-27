@@ -103,6 +103,6 @@ for(degree in 1:8){
 }
 
 ```
-![Exercise 1 Aufgabe 2](Images/00003e.png?raw=true "Title")
+![Exercise 1 Aufgabe 2](Images/00003e.png?raw=true "Exercise 1 Aufgabe 2")
 
 
