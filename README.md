@@ -175,7 +175,7 @@ Here the results changes completely. Now the simplest model achieves the lowest 
 because we are assessing the capabilities of our model outside the range of the predictor values used for
 training.
 
-![Exercise 1 Aufgabe 2b](Images/00002f.png?raw=true "Exercise 1 Aufgabe 2b")
+![Exercise 1 Aufgabe 2b](Images/000039.png?raw=true "Exercise 1 Aufgabe 2b")
 
-![Exercise 1 Aufgabe 2b](Images/00002f.png?raw=true "Exercise 1 Aufgabe 2b")
+![Exercise 1 Aufgabe 2b](Images/000031.png?raw=true "Exercise 1 Aufgabe 2b")
 
