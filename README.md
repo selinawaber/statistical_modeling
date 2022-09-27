@@ -118,6 +118,6 @@ Based on the rss criteria, a model with a polynomial degree of 7 would be the â€
 
 
 
-![Exercise 1 Aufgabe 2b](Images/00002f.png.png?raw=true "Exercise 1 Aufgabe 2b")
+![Exercise 1 Aufgabe 2b](Images/00002f.png.?raw=true "Exercise 1 Aufgabe 2b")
 
 
