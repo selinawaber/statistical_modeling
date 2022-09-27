@@ -11,7 +11,7 @@ Linear regression $Y_i = \beta_0 + \beta_1 x_i + \epsilon_i$ with $\epsilon_i \s
 - Estimate regression coefficients $\beta_0$ and $\beta_1$
 - Plot and add true and estimated regression lines
 
-```{r}
+```R
 set.seed(1)
 n<-15
 beta0<-1
