@@ -254,6 +254,24 @@ pca$sdev
 sqrt(eigen(Sigma)$values)
 
 
+## The subtle difference between the Eigenvectors can also be shown
+## graphically, when the arrows from the PCA are added to the plot from
+## b
+par(pty = "s", lwd = 2)
+plot(X, xlab = "X", ylab = "Y", xlim = range(X), ylim = range(X), col = "grey")
+eig <- eigen(Sigma)
+sqrt_eigvalues <- sqrt(eig$values) #take the square root of the eigenvalues to calculate # the length of the vectors
+arrows(2, 5, 2 + eig$vectors[1, 1] * sqrt_eigvalues[1], 5 + eig$vectors[2,
+    1] * sqrt_eigvalues[1], col = 2, length = 0.1)
+arrows(2, 5, 2 + eig$vectors[1, 2] * sqrt_eigvalues[2], 5 + eig$vectors[2,
+    2] * sqrt_eigvalues[2], col = 2, length = 0.1)
+    
+    
+# Add the arrows of the PCA to the original plot
+arrows(2, 5, 2 + pca$rotation[1, 1] * (pca$sdev)[1], 5 + pca$rotation[2,
+    1] * (pca$sdev)[1], col = 4, length = 0.1)
+arrows(2, 5, 2 + pca$rotation[1, 2] * (pca$sdev)[2], 5 + pca$rotation[2,
+    2] * (pca$sdev)[2], col = 4, length = 0.1)
 
 ```
 
