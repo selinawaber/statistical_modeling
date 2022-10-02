@@ -153,17 +153,7 @@ which(cumsum(propve) >= 0.9)[1]
 # Add a training set with principal components
 train.data <- data.frame(disp = mtcars$disp, my_pca$x[, 1:4])
  
-# Running a Decision tree algporithm
-## Installing and loading packages
-install.packages("rpart")
-install.packages("rpart.plot")
-library(rpart)
-library(rpart.plot)
- 
-rpart.model <- rpart(disp ~ .,
-                    data = train.data, method = "anova")
- 
-rpart.plot(rpart.model)
+
 ```
 
 ```R
