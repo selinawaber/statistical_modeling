@@ -105,7 +105,7 @@ my.kmean<-function(x,k){
   tmp_df<-cbind.data.frame(x=x, cluster=clusters)
   
   #iteratively update centroids
-  temp_count<-0
+  tmp_count<-0
   
   repeat{
     #recompute means
