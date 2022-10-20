@@ -144,6 +144,22 @@ abline(v = aggregate(data = to_plot, x ~ cluster, mean)[, 2], col = 1:5, lty = 2
 
 
 ```R
+kmeans(x, centers, iter.max = 10, nstart = 1)
+
+```
+
+-x: numeric matrix, numeric data frame or a numeric vector
+-centers: Possible values are the number of clusters (k) or a set of initial (distinct) cluster centers. If a number, a random set of (distinct) rows in x is chosen as the initial centers.
+-iter.max: The maximum number of iterations allowed. Default value is 10.
+-nstart: The number of random starting partitions when centers is a number. Trying nstart > 1 is often recommended.
+
+
+
+
+
+
+
+```R
 km <- kmeans(dat, center = 4, nstart = 20)
 plot(dat[, 1], dat[, 2], col = km$cluster, xlab = "Work", ylab = "Price")
 plot(dat[, 1], dat[, 3], col = km$cluster, xlab = "Work", ylab = "Salary")
