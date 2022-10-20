@@ -143,6 +143,19 @@ abline(v = aggregate(data = to_plot, x ~ cluster, mean)[, 2], col = 1:5, lty = 2
 ```
 
 
+```R
+km <- kmeans(dat, center = 4, nstart = 20)
+plot(dat[, 1], dat[, 2], col = km$cluster, xlab = "Work", ylab = "Price")
+plot(dat[, 1], dat[, 3], col = km$cluster, xlab = "Work", ylab = "Salary")
+plot(dat[, 2], dat[, 3], col = km$cluster, xlab = "Price", ylab = "Salary")
+centroids_clusters <- cbind.data.frame(dat, km$cluster)
+names(centroids_clusters) <- c("Work", "Price", "Salary", "Cluster")
+aggregate(data = centroids_clusters, . ~ Cluster, mean)
+````
+
+
+
+
 ### Silhouette plots
 
 Shilouette plots indicate the nearest distance of each sample to the another cluster. Distances towards 1 are favourable, 0 or even negative may indicate wrong assignments.
