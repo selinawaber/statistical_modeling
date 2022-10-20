@@ -192,3 +192,35 @@ varImpPlot(rf)
 rf2 = randomForest(response ~ a + b + c)
 
 ```
+
+### linear and quadratic discriminant analysis 
+
+```R
+require(MASS)
+
+lda1 <- lda(SalaryCat ~ Work + Price, data = ec.noNA)
+
+Work <- with(ec.noNA, seq(min(Work), max(Work), length = 100))
+Price <- with(ec.noNA, seq(min(Price), max(Price), length = 100))
+grid <- expand.grid(Work = Work, Price = Price)
+
+pred.lda1 <- predict(lda1, grid)$class
+
+qda1 <- qda(SalaryCat ~ Work + Price, data = ec.noNA)
+
+pred.qda1 <- predict(qda1, grid)$class
+
+
+cols <- c("white", rgb(0.9, 0.9, 0.8), rgb(0.8, 0.9, 0.9))
+image(Work, Price, array(as.numeric(pred.lda1), c(100, 100)), col = cols)
+with(ec, points(Work, Price, col = ec_col))
+image(Work, Price, array(as.numeric(pred.qda1), c(100, 100)), col = cols)
+with(ec, points(Work, Price, col = ec_col))
+
+````
+
+
+
+
+
+
