@@ -4,3 +4,4 @@
 ## [Principal Component Analysis](Principal_Component_Analysis.md)
 ## [Clustering](Clustering.md)
 ## [Classification](Classification.md)
+## [Linear Model](Linear_Model.md)
