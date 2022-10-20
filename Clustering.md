@@ -148,10 +148,10 @@ kmeans(x, centers, iter.max = 10, nstart = 1)
 
 ```
 
--x: numeric matrix, numeric data frame or a numeric vector
--centers: Possible values are the number of clusters (k) or a set of initial (distinct) cluster centers. If a number, a random set of (distinct) rows in x is chosen as the initial centers.
--iter.max: The maximum number of iterations allowed. Default value is 10.
--nstart: The number of random starting partitions when centers is a number. Trying nstart > 1 is often recommended.
+- x: numeric matrix, numeric data frame or a numeric vector
+- centers: Possible values are the number of clusters (k) or a set of initial (distinct) cluster centers. If a number, a random set of (distinct) rows     in   x is chosen as the initial centers.
+- iter.max: The maximum number of iterations allowed. Default value is 10.
+- nstart: The number of random starting partitions when centers is a number. Trying nstart > 1 is often recommended.
 
 
 
