@@ -37,3 +37,10 @@ data$size <- factor(data$districtSize, levels = 1:3, labels = c("small", "medium
 "large"))
 
 ```
+
+Choose data from a dataset, e.g. for a teacher with 12 years experience
+in the district category large.
+
+```R
+new_data <- data.frame(districtSize = 3, experience = 12, size = "large")
+```
