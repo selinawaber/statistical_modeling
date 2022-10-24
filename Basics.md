@@ -29,3 +29,11 @@ data.noNA<-na.omit(data)
 
 ```
 
+Create a factor variable for the size of the district and add it as additional
+variable (with columnname size) to the data set.
+
+```R
+data$size <- factor(data$districtSize, levels = 1:3, labels = c("small", "medium",
+"large"))
+
+```
