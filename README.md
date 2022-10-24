@@ -6,3 +6,4 @@
 ## [Clustering](Clustering.md)
 ## [Classification](Classification.md)
 ## [Linear Model](Linear_Model.md)
+## [Mixed Models](Mixed_Models.md)
