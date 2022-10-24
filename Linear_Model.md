@@ -82,3 +82,61 @@ summary( step( lcs.all, k=log(50), trace=0))$coefficients
 # => the variable  'pop75'    drops from the model
 ```      
       
+### Hypothesis testing
+
+Given $y=\beta_0 + \beta_1 x_1 + \beta_2 x_2$ and $(X^TX)^{-1}$ and hat(beta0), hat(beta1), hat(beta2) and $s^2$
+
+Standard Error SE(hat(beta2))
+```R
+# estimated covariance matrix of LS estimates
+V <- s2 * XX.inv
+# se for beta2
+(se.beta2 <- sqrt(V[3, 3]))
+````
+
+Test the hypothesis beta2=0
+````R
+(t0 <- beta2/se.beta2)
+# reject H0: beta2=0?
+t0.975 <- qt(0.975, df = n - 3)
+abs(t0) > t0.975
+
+# corresponding p-value is
+2 * (1 - pt(abs(t0), df = n - 3))
+
+`````
+
+Estimate covariance between hat(beta1) and hat(beta2). What is the standard error of hat(beta1)-hat(beta2)?
+```R
+cov.beta1beta2 <- V[2, 3]
+# standard error for beta1-beta2
+se.diff <- sqrt(V[2, 2] + V[3, 3] - 2 * cov.beta1beta2)
+# same as
+A <- matrix(c(1, -1), 1, 2)
+sqrt(A %*% V[2:3, 2:3] %*% t(A))
+
+Test hypothesis that beta1 = beta2
+```R
+t0 <- (beta1 - beta2)/se.diff
+# reject H0: beta1=beta2?
+abs(t0) > t0.975
+
+# corresponding CI
+(beta1 - beta2) + c(-1, 1) * t0.975 * se.diff
+```
+
+Total sum of squares is 120. Consturct the ANOVA table and test the hypothesis that beta1=beta2=0.
+```R
+SST <- 120
+df.resid <- (n - 3)
+df.reg <- 2
+SSE <- s2 * df.resid
+SSR <- SST - SSE
+# reject H0: beta1=beta2=0?
+F0 <- (SSR/df.reg)/s2
+F0 > qf(0.95, df.reg, df.resid)
+
+# coef of determination
+(R2 <- SSR/SST)
+
+```
