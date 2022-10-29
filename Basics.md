@@ -44,3 +44,18 @@ in the district category large.
 ```R
 new_data <- data.frame(districtSize = 3, experience = 12, size = "large")
 ```
+
+### Handling Logitudial Data
+
+````R
+library(reshape)
+
+data <- read.table("data.txt", header = TRUE)
+
+data_long<-reshape(data, varying=paste("day", 1:15, sep=""), direction="long", v.names="n.termites", timevar="day", idvar="dish")
+
+dimnames(data_long)[[1]] <- seq(dimnames(data_long)[[1]])
+data_long$dose <- factor(data_long$dose)
+data_long$dish <- factor(data_long$dish)
+
+`````
