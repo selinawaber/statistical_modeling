@@ -115,7 +115,7 @@ se.diff <- sqrt(V[2, 2] + V[3, 3] - 2 * cov.beta1beta2)
 # same as
 A <- matrix(c(1, -1), 1, 2)
 sqrt(A %*% V[2:3, 2:3] %*% t(A))
-
+````
 Test hypothesis that beta1 = beta2
 ```R
 t0 <- (beta1 - beta2)/se.diff
