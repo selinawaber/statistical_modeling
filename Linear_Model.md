@@ -95,6 +95,7 @@ V <- s2 * XX.inv
 ````
 
 Test the hypothesis beta2=0
+
 ````R
 (t0 <- beta2/se.beta2)
 # reject H0: beta2=0?
