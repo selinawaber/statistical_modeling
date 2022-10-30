@@ -115,7 +115,7 @@ plot( lcs.aic)                  # 4 plots to assess the model
 summary( step( fit.all, k=log(50), trace=0))$coefficients
 
 ```      
-
+![AIC](Images/image-36.png?raw=true "AIC")
 
 
 
