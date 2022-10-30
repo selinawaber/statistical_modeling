@@ -33,8 +33,29 @@ Residuals versus leverage helps us identify cases which have high leverage.
 - Residuals vs Leverage. Used to identify influential cases, that is extreme values that might influence the regression results when included or excluded from the analysis.  Outliers can be identified by examining the standardized residual (or studentized residual), which is the residual divided by its estimated standard error. Standardized residuals can be interpreted as the number of standard errors away from the regression line.
 Observations whose standardized residuals are greater than 3 in absolute value are possible outliers
 
+### Inflection points with Cooks distance
 
-### Leave on out ofr linear models
+```R
+cooksD<-cooks.distance(fit1)
+
+#Plot Cook’s Distance with a horizontal line
+#at 4/n to see which observations exceed this thresdhold
+n<-nrow(data)
+plot(cooksD, main="Cooks Diastance for Influential Obs")
+ablie(h=4/n, lty=2, col="blue") #add cut of line
+
+influcential_obs<-as.numeric(names(cooksD)[(cooksD>(4/n))])
+
+outliners_removed<-data[-influcential_obs,]
+
+fit2<-lm(outliners_removed$y ~., data=outliners_removed)
+
+````
+
+
+
+
+### Leave on out for linear models
 
 What is the effect of the ith observation on
  - the stimate
