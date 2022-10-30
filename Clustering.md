@@ -31,7 +31,7 @@ hc3 = hclust(dist(matrix), method = "ward.D")
 plot(hc1)
 
 # We can return a datastructure where each item is assigned to a cluster, provided number of clusters
-cut = cuttree(hc1, 6)
+cut = cutree(hc1, 6)
 
 # We can do the same visually like this:
 par(mfrow = c(1, 1))
