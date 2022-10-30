@@ -31,6 +31,14 @@ par(mfrow = c(1, 1))
 plot(hc1, xlab = "", sub = "")
 rect.hclust(hc1, k = 5, border = rainbow(6))
 # Draws rectangles around the branches of a dendrogram highlighting the corresponding clusters. First the dendrogram is cut at a certain level, then a rectangle is drawn around selected branches.
+
+# dendextend package
+dend <- as.dendrogram(hc1)
+dend1 <- color_branches(dend, k = 6)
+dend2 <- color_labels(dend, k = 6)
+par(mfrow = c(1, 2))
+plot(dend1, main = "Colored branches")
+plot(dend2, main = "Colored labels")
 ```
 
 ### Ward method - Dendrogram
@@ -50,16 +58,7 @@ table(data.frame( cluster=dd1, data$species)) # confusion matrix
 
 
 
-Alternative with the dendextend package
 
-```R
-dend <- as.dendrogram(hc1)
-dend1 <- color_branches(dend, k = 6)
-dend2 <- color_labels(dend, k = 6)
-par(mfrow = c(1, 2))
-plot(dend1, main = "Colored branches")
-plot(dend2, main = "Colored labels")
-```
 
 
 ### K-Means Clustering
