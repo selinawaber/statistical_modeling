@@ -2,15 +2,7 @@
 
 ## Clustering
 
-Clean the input data
 
-```R
-data<-read.csv("data.txt", sep="\t")
-rownames(data)<-data[,1]
-data<-data[,-1]
-data_scaled <- scale(data)
-
-````
 
 
 
@@ -38,7 +30,7 @@ cut = cutree(hc1, 6)
 par(mfrow = c(1, 1))
 plot(hc1, xlab = "", sub = "")
 rect.hclust(hc1, k = 5, border = rainbow(6))
-
+# Draws rectangles around the branches of a dendrogram highlighting the corresponding clusters. First the dendrogram is cut at a certain level, then a rectangle is drawn around selected branches.
 ```
 
 ### Ward method - Dendrogram
