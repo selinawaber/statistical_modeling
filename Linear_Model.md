@@ -103,7 +103,7 @@ BIC is additionally penalizing for the number of observations. With many observa
 
 
 ```R
-lcs.aic <- step( lcs.all)       # AIC is default choice
+lcs.aic <- step( fit.all)       # AIC is default choice
 summary( lcs.aic)$coefficients
 # AIC the smaller the better!
 extractAIC( lcs.aic)[2]
@@ -112,9 +112,16 @@ plot( lcs.aic)                  # 4 plots to assess the model
 
 
 # BIC as an alternative: 
-summary( step( lcs.all, k=log(50), trace=0))$coefficients
-# => the variable  'pop75'    drops from the model
+summary( step( fit.all, k=log(50), trace=0))$coefficients
+
 ```      
+
+
+
+
+
+
+
       
 ### Hypothesis testing
 
