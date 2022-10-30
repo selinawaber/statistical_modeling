@@ -31,6 +31,7 @@ hc3 = hclust(dist(matrix), method = "ward.D")
 plot(hc1)
 
 # We can return a datastructure where each item is assigned to a cluster, provided number of clusters
+# The output of each cutree() call represents the cluster assignments for each observation in the original dataset.
 cut = cutree(hc1, 6)
 
 # We can do the same visually like this:
