@@ -49,21 +49,6 @@ table(data.frame( cluster=dd1, data$species)) # confusion matrix
 ```
 
 
-### Conduct cluster analysis
-
-Is it possible to cut the tree such that the resulting classification can be interpreted in
-a meaningful way?
-
-```R
-hc1_cut<-cutree(hc1,6)
-head(hc1_cut)
-
-colo<-rainbow(6)[as.numeric(hc1_cut)]
-plot(hc1)
-rect.hclust(hc1, k=5, border=rainbow(6))
-
-```
-
 
 Alternative with the dendextend package
 
