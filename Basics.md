@@ -59,3 +59,24 @@ data_long$dose <- factor(data_long$dose)
 data_long$dish <- factor(data_long$dish)
 
 `````
+
+
+### EDA
+
+
+```R
+summary(data)
+
+hist(data$y, main="Histogram of x")
+abline(v = mean(data$y), lty = 2, col = "blue")
+
+plot(data$y, col=data$x)
+legend("topright", legend = c("x1", "x2", "x3", "x4"), col = 1:4, pch = "o")
+
+boxplot(data$y~ data$x, main ="boxplot")
+
+pairs(data)
+# choosing pairs
+paris(data[, c(1,3)]) #  1 and 3
+pairs(data[, c(1:3)]) # 1 to 3
+```
