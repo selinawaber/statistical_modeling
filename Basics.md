@@ -45,6 +45,15 @@ in the district category large.
 new_data <- data.frame(districtSize = 3, experience = 12, size = "large")
 ```
 
+Partition data into levels
+
+cut divides the range of x into intervals and codes the values in x according to which interval they fall. The leftmost interval corresponds to level one, the next leftmost to level two and so on.
+
+```R
+data_col <- cut(data$Salary, 3, labels = FALSE)
+pairs(data[, 1:3], col = data_col)
+```
+
 ### Handling Logitudial Data
 
 ````R
