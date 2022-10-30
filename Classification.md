@@ -219,8 +219,46 @@ with(ec, points(Work, Price, col = ec_col))
 
 ````
 
+### Apply cross validation to evaluate the percentage of correctly predicted types of wine for each model.
 
 
+```R
+K_folds_cv <- function(k,dataset,model_to_fit,formula_to_use, ...){
+      # shuffle our data
+      dataset <- dataset[sample(1:nrow(dataset)),]
+      # create k equally size folds
+      folds <- cut(seq(1,nrow(dataset)), breaks=k, labels=FALSE)
+      err <- numeric(nrow(dataset))
+      j <- 1
+      for(i in 1:k){
+            testIndexes <- which(folds==i, arr.ind=TRUE)
+            testData <- dataset[testIndexes, ]
+            len_test <- nrow(testData)
+            trainData <- dataset[-testIndexes, ]
+            switch(model_to_fit, 
+                  ’ctrees’ = {
+                  rt_analysis <- ctree( formula_to_use, data=trainData)
+                  pred_ch_r <- predict(rt_analysis,testData)
+                  },
+                  ’randomForest’ = {
+                  rf_analysis <- randomForest(trainData[,2:ncol(wines_df)],y=trainData[,1], ...)
+                  pred_ch_r <- predict(rf_analysis,testData)
+            }
+            )
+         err[j : (j+len_test-1)] <- pred_ch_r == testData[,1]
+         j <- j+len_test
+       }
+return(err)
+}
 
 
+```
+
+```R
+k_cv_randomForest_1 <- K_folds_cv(k = 10, dataset = wines_df, model_to_fit = "randomForest",
+formula_to_use = formula(Type ~ .))
+
+sum(k_cv_randomForest_1)/length(k_cv_randomForest_1)
+
+```
 

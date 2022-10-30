@@ -29,3 +29,54 @@ data.noNA<-na.omit(data)
 
 ```
 
+Create a factor variable for the size of the district and add it as additional
+variable (with columnname size) to the data set.
+
+```R
+data$size <- factor(data$districtSize, levels = 1:3, labels = c("small", "medium",
+"large"))
+
+```
+
+Choose data from a dataset, e.g. for a teacher with 12 years experience
+in the district category large.
+
+```R
+new_data <- data.frame(districtSize = 3, experience = 12, size = "large")
+```
+
+### Handling Logitudial Data
+
+````R
+library(reshape)
+
+data <- read.table("data.txt", header = TRUE)
+
+data_long<-reshape(data, varying=paste("day", 1:15, sep=""), direction="long", v.names="n.termites", timevar="day", idvar="dish")
+
+dimnames(data_long)[[1]] <- seq(dimnames(data_long)[[1]])
+data_long$dose <- factor(data_long$dose)
+data_long$dish <- factor(data_long$dish)
+
+`````
+
+
+### EDA
+
+
+```R
+summary(data)
+
+hist(data$y, main="Histogram of x")
+abline(v = mean(data$y), lty = 2, col = "blue")
+
+plot(data$y, col=data$x)
+legend("topright", legend = c("x1", "x2", "x3", "x4"), col = 1:4, pch = "o")
+
+boxplot(data$y~ data$x, main ="boxplot")
+
+pairs(data)
+# choosing pairs
+paris(data[, c(1,3)]) #  1 and 3
+pairs(data[, c(1:3)]) # 1 to 3
+```
