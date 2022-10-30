@@ -101,19 +101,8 @@ train.data <- data.frame(disp = mtcars$disp, my_pca$x[, 1:4])
 
 ### PCA Exercise 1
 
-Use multivariate methods to determine whether there are groupings of countries and whether meat consumption
-is related to that of other foods.
-
-- Perform a PCA analysis and discuss the result.
-- How many components could you individuate? What do the components represent?
-
 
 ```R
-
-data <- read.csv("data/protein.txt", sep = "\t") rownames(protein) <- protein[, 1]
-rownames(data)<- data[, 1] # data[row, column] therefor first column
-data <- data[, -1] # all but first column
-
 
 apply(data, 2, sd)
 apply(data, 2, mean)
@@ -142,15 +131,13 @@ cumsum(pca$sdev^2)/ncol(data)
 
 ### PCA Exercise 2
 
-The data contains the precipitable water content of the atmosphere in Europe from the first 60 days. Images are recorded every 6 hours. The variables are:
+ The variables are:
 - pre: is an array with dimensions c(lon, lat, time) = c(31, 19, 240)
 - lon: is a vector with the corresponding longitudes in degree
 - lat: is a vector with the corresponding latitudes in degree
 
-Display the four images of the 1st January. Display a map of the mean field and the variance field of the data. Add the contures of the countries.
 
 ```R
-load("data/prec_jan_feb.RData")
 require(maps)
 require(fields)
 
@@ -330,41 +317,11 @@ plot( pca)  # equivalent to `screeplot( pca)`, how much variance is explained by
 plot( pca$x[,1:2], type='n', ylim=c(-2.7, 3.7), xlim=c(-3, 7))
 text( pca$x[,1:2], rownames( jobs))
 
-# or the same plot, but with a different aesthetics:
-library(factoextra)
-fviz_pca_ind(pca,
-             col.ind = "darkblue", # Color by the quality of representation,
-             repel = TRUE     # Avoid text overlapping
-             )
-
 ```
 
-### Classical biplot:
-```R
-biplot( pca, scale = 0)
-
-## to plot other principal components, use, for example:
-biplot( pca, scale = 0, choices=c(3, 2))
-
-# or equivalent 
-fviz_pca_biplot(pca, repel = TRUE,
-                col.var = "#2E9FDF", # Variables color
-                col.ind = "#696969"  # Individuals color
-                )
-```
-
-###  Reconstruction of the data in PCA
-```R
-mean_jobs = colMeans(jobs)
-pca <- prcomp(jobs, center = FALSE, scale = FALSE) # no scaling for simplicity of the example
-nComp = 9
-jobshat = pca$x[,1:nComp] %*% t(pca$rotation[,1:nComp])
+         
 
 
-jobs[5,]
-jobshat[5,]
-
-```
 
 
 
