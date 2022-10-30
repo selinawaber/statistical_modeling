@@ -22,6 +22,17 @@ lm(predictor ~ responseA + I(responseB * 2))
 
 Residuals versus leverage helps us identify cases which have high leverage.
 
+### Check Linear assumptions using plots:
+
+- Residuals vs Fitted. Used to check the linear relationship assumptions. A horizontal line, without distinct patterns is an indication for a linear relationship, what is good.
+
+- Normal Q-Q. Used to examine whether the residuals are normally distributed. It’s good if residuals points follow the straight dashed line.
+
+- Scale-Location (or Spread-Location). Used to check the homogeneity of variance of the residuals (homoscedasticity). Horizontal line with equally spread points is a good indication of homoscedasticity. 
+
+- Residuals vs Leverage. Used to identify influential cases, that is extreme values that might influence the regression results when included or excluded from the analysis.  Outliers can be identified by examining the standardized residual (or studentized residual), which is the residual divided by its estimated standard error. Standardized residuals can be interpreted as the number of standard errors away from the regression line.
+Observations whose standardized residuals are greater than 3 in absolute value are possible outliers
+
 
 ### Leave on out ofr linear models
 
