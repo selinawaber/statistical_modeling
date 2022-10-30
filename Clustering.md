@@ -168,14 +168,17 @@ for (k in 3:4)  # compact form for other `k`
 
 ### alternative clustering through package 'cluster'
 ```R
-require( cluster)
+## plotting iris (data frame) in a 2-dimensional plot and partitioning
+## into 3 clusters.
+install.packages("cluster")
+library("cluster")
 
-cl <- pam( iris[,1:4], 3)  # essentially a k-means
-sl <- silhouette( cl)
-plot( sl)  
-abline( v=mean( sl[,3]))
-
-clusplot( cl)
+data.x <- data[, 1:4]
+cl3 <- pam(data.x, 3)$clustering
+op <- par(mfrow= c(2,2))
+clusplot(data.x, cl3, color = TRUE)
 ```
+The R function pam() can be used to compute PAM algorithm. The simplified format is pam(x, k), where “x” is the data and k is the number of clusters to be generated.
+
 
 
