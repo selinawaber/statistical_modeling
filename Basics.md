@@ -53,6 +53,15 @@ cut divides the range of x into intervals and codes the values in x according to
 data_col <- cut(data$Salary, 3, labels = FALSE)
 pairs(data[, 1:3], col = data_col)
 ```
+replace Infty values with NA
+
+```R
+data$x[is.infinite(data$x)]<-NA
+```
+
+
+
+
 
 ### Handling Logitudial Data
 
@@ -74,7 +83,11 @@ data_long$dish <- factor(data_long$dish)
 
 
 ```R
+str(data)
+head(data)
 summary(data)
+
+data$x<-as.numeric(data$x)
 
 hist(data$y, main="Histogram of x")
 abline(v = mean(data$y), lty = 2, col = "blue")
@@ -86,6 +99,6 @@ boxplot(data$y~ data$x, main ="boxplot")
 
 pairs(data)
 # choosing pairs
-paris(data[, c(1,3)]) #  1 and 3
+pairs(data[, c(1,3)]) #  1 and 3
 pairs(data[, c(1:3)]) # 1 to 3
 ```
