@@ -9,8 +9,8 @@ Datasets where linear models do not fit. Thus we extend the model to Y = g(x) + 
 
 ```R
 # The kernel, the higher the bandwith, the smoother the result
-m2 <- with(data, ksmooth(x, y, kernel = "normal / normal / box", bandwidth = 15))
-
+m2 <- with(data, ksmooth(x, y, kernel = "normal", bandwidth = 15))
+m3 <- with(data, ksmooth(x, y, kernel = "box", bandwidth = 15))
 ```
 ### Local Polynomials (local estimation approach)
 Often better at boundaries. Kernel approach cannot correctly fit a line.
