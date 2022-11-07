@@ -239,8 +239,27 @@ lines( density(ratio))
 curve( dnorm(x, mean=mean(ratio), sd=sd(ratio)), add=TRUE, col='red')
 abline( v=c(mean(sam), mean(ratio)), col=c(4,3), lty=c(1,2))
 ```
-### Parametric bootstrap distribution of the waiting time
+### Use a parametric bootstrap to simulate a 95% confidence interval for the parameter in the model
 
 ```R
-#?????????????????????????
+n <- length(levels(term$dish))
+iterations <- 300
+out_vector <- numeric(iterations)
+for (iter in 1:iterations) {
+     index <- matrix(sample(n, n, replace = TRUE), ncol = 1) # sample n dishes with replacement
+     colnames(index) <- "dish"
+     
+     tmp_term <- merge(index, term, all.x = T) # build the long format dataset
+     # with repeated dishes
+     
+     if (prod(summary(tmp_term$dose)) == 0)
+      next # have we sampled all dishes from the same dose? if so, go to next iteration
+      
+     m.tmp <- lmer(n.termites ~ dose + day + (1 | dish), data = tmp_term)
+     
+    ifelse(isSingular(m.tmp), next, out_vector[iter] <- fixef(m.tmp)[2]) # check whether
+    # the fitted mixed model is (almost/near) singular (?isSingular). If so, go to
+    # next iteration without storing the results.
+}
+quantile(out_vector, c(0.025, 0.975))
 ```
