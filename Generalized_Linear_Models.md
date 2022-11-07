@@ -10,6 +10,12 @@ Instead of talking by certain factor of increase in y when we change position in
 
 Fromt the summary of the glm in r we get the temp estime. Its value x will tell us about the log odd increase when we increase x. Which corresponds to a factor inrease of e^value.
 
+Computes the inverse logit transformation
+```R
+require(faraway)
+ilogit(x)
+````
+
 ### Poisson Regression
 
 ```R
