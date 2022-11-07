@@ -3,7 +3,8 @@
 ## Generalized Linear Models
 
 ```R
-glm = glm(cbind(x,z)~w, family = binomial(link="logit"))
+glm(cbind(Y,N-Y) ~ X,  family = binomial(link="logit"),data=DataFrame) 
+
 ```
 Instead of talking by certain factor of increase in y when we change position in x, instead we talk about a change in log odds.
 
