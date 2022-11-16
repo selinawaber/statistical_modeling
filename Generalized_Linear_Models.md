@@ -13,7 +13,9 @@ Fromt the summary of the glm in r we get the temp estime. Its value x will tell 
 Computes the inverse logit transformation
 ```R
 require(faraway)
-ilogit(x)
+ilogit(coef(glm1)[1] + coef(glm1)[2]*w)
+
+fitted(glm1)
 ````
 
 ### Poisson Regression
