@@ -261,4 +261,38 @@ formula_to_use = formula(Type ~ .))
 sum(k_cv_randomForest_1)/length(k_cv_randomForest_1)
 
 ```
+### Use Cross Validation to find optimal bandwidth for the kernel approach. Use hcv() and sm.regression() from package sm.
+
+````R
+require(sm)
+
+cv <- with(data, hcv(x, y, display = "line", ngrid = 50))
+abline(v = cv, col = "darkgreen")
+plot(data)
+tt <- with(data, sm.regression(x, y, h = cv, add = T, col = "darkgreen"))
+``````
+
+
+### Cross Validation based on smoothing splines
+
+```R
+ln <- 50
+output <- array(NA, c(ln, 4))
+sparseq <- seq(0.1, to = 1, l = ln)
+
+for (i in 1:ln) {
+      si <- with(data.noNA, smooth.spline(x, y, spar = sparseq[i], cv = TRUE))
+      output[i, ] <- with(si, c(lambda, cv.crit, df, spar = spar))
+}
+
+colnames(output) <- c("lambda", "CV", "d.f.", "spar")
+min.value <- output[which(min(output[, 2]) == output[, 2]), ]
+par(mfrow = c(1, 2))
+plot(output[, 1], output[, 2], type = "l")
+abline(v = min.value[1])
+plot(data)
+with(data.noNA, lines(smooth.spline(x, y, spar = min.value["spar"],
+cv = TRUE), col = 2))
+
+````
 

@@ -59,7 +59,12 @@ replace Infty values with NA
 data$x[is.infinite(data$x)]<-NA
 ```
 
-
+ Subset 
+ 
+ ```R
+ fit2 <- update(fit1, subset= 20:50)
+ 
+ ```
 
 
 

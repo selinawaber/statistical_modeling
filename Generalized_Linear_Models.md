@@ -1,13 +1,23 @@
 # Statistical Modeling
 
-## Mixed Models
+## Generalized Linear Models
 
 ```R
-library(lme4)
-# Random intercept (pred2)
-# Different starting points determined by pred2, but not different slopes determined by pred2
-lmer(response ~ pred1 + (1 | pred2) , data=data)
-# For longtidual data, where x is for example time and pred2 is the id of subjects for which we have multiple datapoints over time
-lmer(response ~ pred1 + (x | pred2) , data=data)
+glm(cbind(Y,N-Y) ~ X,  family = binomial(link="logit"),data=DataFrame) 
 
+```
+Instead of talking by certain factor of increase in y when we change position in x, instead we talk about a change in log odds.
+
+Fromt the summary of the glm in r we get the temp estime. Its value x will tell us about the log odd increase when we increase x. Which corresponds to a factor inrease of e^value.
+
+Computes the inverse logit transformation
+```R
+require(faraway)
+ilogit(x)
+````
+
+### Poisson Regression
+
+```R
+glm = glm(y ~ x, family="poisson", data = data)
 ```
