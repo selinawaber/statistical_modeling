@@ -107,3 +107,38 @@ pairs(data)
 pairs(data[, c(1,3)]) #  1 and 3
 pairs(data[, c(1:3)]) # 1 to 3
 ```
+
+### Add the line of the predicted probabilities to the plot
+
+````R
+conc<-dat$conc
+
+plot(dead/30 ~ conc, data=dat, ylim = c(0, 1), xlim = c(-2, 6))
+
+x <- seq(-2, 6, length.out = 2000)
+
+newdat<-expand.grid(conc=x)
+newdat<-data.frame(conc=x)
+
+pl <- predict(ml, newdata = newdat, type = "response")
+lines(x, pl, col = "blue")
+abline(h = 1, col = "red", lty = 2)
+abline(h = 0, col = "red", lty = 2)
+grid()
+
+`````
+
+### 95\% Confidence Interval of the predicted values
+
+```R
+plot(dead/30 ~ conc, data = dat, xlim = c(-1, 5), ylim = c(0, 1))
+pl <- predict(ml, newdata = data.frame(conc = x), type = "response", se.fit = TRUE)
+lines(x, pl$fit, col = "blue")
+lines(x, pl$fit + 1.96 * pl$se.fit, col = 4, lty = 2)
+lines(x, pl$fit - 1.96 * pl$se.fit, col = 4, lty = 2)
+abline(h = 1, col = "red", lty = 2)
+abline(h = 0, col = "red", lty = 2)
+grid()
+
+````
+
