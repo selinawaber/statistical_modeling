@@ -11,8 +11,7 @@
 ## [Generalized Linear Models](Generalized_Linear_Models.md)
 ## [Survival Analysis](Survival_Analysis.md)
 ## [Time Series](Time_Series.md)
-## [Generalized Linear Models](Generalized_Linear_Models.md)
-## [Survival Analysis](Survival_Analysis.md)
+
 
 
 
