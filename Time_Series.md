@@ -1,5 +1,22 @@
 # Statistical Modeling
 
+
+### Decompose time series into a seasonal trend with stl()
+
+```R
+decomp <- stl(data_ts, s.window = "periodic")
+head(decomp$time.series, 2)
+plot(decomp)
+
+````
+Adjust the time series for seasonality.
+
+````R
+
+seas_adj_ts<-data_ts - decomp$time.series[, 1]
+
+`````
+
 ## Time Series
 
 For time series there might be a dependence between variables, as a measurement x_i is dependant on x_i-1. Thus we want to plot the residual of x_i against x_i-1 for all observations. In R this looks something like this:
@@ -28,12 +45,20 @@ Present observation depends on a weighted average of white noise components: Y_t
 Combined MA and AR model into ARMA model.
 
 ### Auto Correlative Function (ACF)
+Are the residuals correlated?
 
-### Decompose time series into a seasonal trend with stl()
+````R
+tt <- acf(decomp$time.series[, 3])
+
+
+`````
+
+### PCAF
 
 ```R
-decomp <- stl(data_ts, s.window = "periodic")
-head(decomp$time.series, 2)
-plot(decomp)
 
-````
+pacf(decomp$time.series[, 3])
+
+```
+
+
