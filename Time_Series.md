@@ -28,3 +28,12 @@ Present observation depends on a weighted average of white noise components: Y_t
 Combined MA and AR model into ARMA model.
 
 ### Auto Correlative Function (ACF)
+
+### Decompose time series into a seasonal trend with stl()
+
+```R
+decomp <- stl(data_ts, s.window = "periodic")
+head(decomp$time.series, 2)
+plot(decomp)
+
+````
