@@ -129,3 +129,27 @@ library(ggplot2)
 ggplot(data = Y_melted) + geom_line(aes(x = time, y = value, color = sigma)) + theme_bw()
 
 ````
+
+### Condifdence Interval
+
+```R
+pred51 <- Y[50] * phi + c(-1, 0, 1) * qnorm(p = 0.975, lower.tail = TRUE) * sigma
+print(pred51)
+
+````
+
+
+### How many times does the AR process change sign?
+
+```R
+n.sim <- 10000
+Y.mat <- rmvnorm(n.sim, rep(0, Ti), SIGMA)
+
+getNChangedSigns <- function(x) {
+    sum(diff(sign(x)) != 0)
+}
+res <- apply(Y.mat, 1, getNChangedSigns)
+summary(res)
+
+hist(res, breaks = 25, main = "Number of changes")
+````
