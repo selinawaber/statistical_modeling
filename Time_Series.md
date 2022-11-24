@@ -95,7 +95,7 @@ for (i in 1:T) {
   }
 }
 
-Y2 <- c(rmvnorm(1, rep(0, Ti), SIGMA))
+Y2 <- c(rmvnorm(1, rep(0, T), SIGMA))
 plot(Y2, type = "l", main = "direct")
 
 
