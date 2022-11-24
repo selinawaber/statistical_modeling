@@ -60,5 +60,43 @@ tt <- acf(decomp$time.series[, 3])
 pacf(decomp$time.series[, 3])
 
 ```
+### Auto Regressive Process
+
+$Y_t = \phi Y_{t-1}+ \epsilon_t$ with $\epsilon \sim^{iid} Normal(0, \sigma^2)$ and $\phi \in (0,1)$ and $Y_1 \sim Normal(0,\sigma^2)$
+
+Simulate AR(1) process for t=1....50 in a sequential simulation and a direct approach.
 
 
+````R
+set.seed(1)
+T <- 50
+Y <- numeric(Ti) ## Y<-c()
+sigma <- sqrt(2)
+phi <- 0.5
+
+
+## sequential
+Y[1] <- rnorm(1, 0, sigma) 
+for (i in 2:T) {
+    Y[i] <- phi * Y[i - 1] + rnorm(1, 0, sigma)
+}
+par(mfrow = c(1, 2))
+plot(Y, type = "l", main = "sequential")
+
+
+## direct
+require(mvtnorm)
+sig_eq <- function(x, y, phi = 0.5, sigma_s = 1) { (sigma_s^2)/(1 - phi^2) * phi^(abs(x - y)) }
+
+SIGMA <- matrix(ncol = T, nrow = T)
+for (i in 1:T) {
+  for (j in 1:T) {
+    SIGMA[i, j] <- sig_eq(i, j, sigma_s = sigma)
+  }
+}
+
+Y2 <- c(rmvnorm(1, rep(0, Ti), SIGMA))
+plot(Y2, type = "l", main = "direct")
+
+
+``````
