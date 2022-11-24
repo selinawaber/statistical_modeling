@@ -100,3 +100,32 @@ plot(Y2, type = "l", main = "direct")
 
 
 ``````
+
+### Variation of sigma
+
+```R
+sigma_vector <- c(2, 4, 8, 16, 32, 64)
+Y_matrix <- matrix(nrow = Ti, ncol = length(sigma_vector))
+phi <- 0.5
+
+## sequential
+for (j in 1:length(sigma_vector)) { 
+    set.seed(115)
+    Y_matrix[1, j] <- rnorm(1, 0, sigma_vector[j]) 
+    for (i in 2:Ti) {
+        Y_matrix[i, j] <- phi * Y_matrix[i - 1, j] + rnorm(1, 0, sigma_vector[j])
+    }
+}
+
+Y_matrix <- as.data.frame(Y_matrix)
+colnames(Y_matrix) <- as.character(sigma_vector)
+
+library(reshape2)
+Y_melted <- melt(Y_matrix)
+colnames(Y_melted) <- c("sigma", "value")
+Y_melted$time <- rep(1:50, length(sigma_vector))
+
+library(ggplot2)
+ggplot(data = Y_melted) + geom_line(aes(x = time, y = value, color = sigma)) + theme_bw()
+
+````
