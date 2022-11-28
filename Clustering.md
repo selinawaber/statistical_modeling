@@ -147,6 +147,33 @@ aggregate(data = centroids_clusters, . ~ Cluster, mean)
 ````
 
 
+One Dimensional K-Means Clustering
+
+```R
+
+my_function <- function(x, k){
+centx <- array(seq(max(x)/k, max(x), by = max(x)/k), k)
+data <- data.frame(x = x, clus = NA)
+clus <- data.frame(name = 1:k, centx = centx)
+finish <- FALSE
+while(finish == FALSE){ for(i in 1:length(x)){
+  dist <- sqrt((x[i] - clus$centx)^2)
+  data$clus[i] <- which.min(dist)
+}
+centx_old <- clus$centx
+for(i in 1:k){
+clus[i, 2] <- mean(subset(data$x, data$clus == i)) }
+if(identical(centx_old, clus$centx)) finish <- TRUE
+}
+data
+}
+x <- c(1,2,1,3,2,6,5,7,6,12) k=3
+my_function(x, k)
+
+
+```
+
+
 
 
 ### Silhouette plots

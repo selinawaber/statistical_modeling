@@ -13,6 +13,8 @@ In the linear case we assume for the distributions to have the same covariance m
 The discrimination line is at the point (in 2D) with the same densities.
 
 ```R
+library(MASS)
+
 lda = lda(response ~ predictor1 + predictor2, data = data)
 
 ```
