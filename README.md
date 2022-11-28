@@ -12,7 +12,8 @@
 ## [Survival Analysis](Survival_Analysis.md)
 ## [Time Series](Time_Series.md)
 ## [Spatial Statistics](Spatial_Statistics.md)
-
+## [Extreme Value Theory](Extreme_Value_Theory.md)
+## [Neural Networks and Deep Learning] (neural.md)
 
 
 
