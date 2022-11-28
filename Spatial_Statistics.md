@@ -59,14 +59,7 @@ A Nugget effect model takes the average over all other points as estime, if the 
 
 
 
-### Regression to investiagte if there is an overall trend
 
-````R
-sim1.long <- cbind(expand.grid(x1 = 1:100, x2 = 1:100), z = c(sim1))
-m1 <- lm(z ~ x1 * x2, data = sim1.long)
-summary(m1)
-
-``````
 
 
 
