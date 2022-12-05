@@ -12,6 +12,14 @@ require(extRemes)
 gevfit = fevd(data)
 summary(gevfit)
 ````
+```R
+require(extRemes)
+
+gevfit <- fevd(maximum$Speed, period.basis = "month")
+summary(gevfit, silent = TRUE)[c(1, 3)]
+````
+
+
 
 Where the shape will define the following distributions:
 - bigger than 0: Frechet
