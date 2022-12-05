@@ -38,3 +38,5 @@ gevfit = fevd(data, threeshold = 10)
 
 
 ### Threshold Selection for Modeling Peaks over thresholds
+
+Mean residual life plot:
