@@ -18,7 +18,15 @@ coal_df<-data.frame(coal=coal, year=year)
 data_ts <- ts(data$Price, frequency = 12, start = c(2007, 1))
 
 ``````
-
+ Plot maximum monthly wind speed.
+ 
+ ```R
+monthly_max <- aggregate(Speed ~ Month + Year, data = dataWind_noNA, max)
+plot(Speed ~ Month, data = monthly_max)
+ts_mm <- ts(monthly_max$Speed, start = c(1976, 1), frequency = 12)
+plot(ts_mm, ylab = "Monthly maxima")
+ ````
+ 
 
 ### Clean data
 
