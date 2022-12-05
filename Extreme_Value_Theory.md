@@ -16,7 +16,8 @@ summary(gevfit)
 require(extRemes)
 
 gevfit <- fevd(maximum$Speed, period.basis = "month")
-summary(gevfit, silent = TRUE)[c(1, 3)]
+summary(gevfit, silent = TRUE)
+ci(gevfit, type = "parameter")
 ````
 
 
