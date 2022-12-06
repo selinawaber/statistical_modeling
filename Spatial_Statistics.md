@@ -14,7 +14,9 @@ Exponential: phi* exp( -d/range)
 ```R
 require(fields)
 
-Exponential(d, range = 1, alpha = 1/range, phi = 1)
+Exponential(d, range = 1, alpha = 1/range, phi=1.0,theta = NULL)
+Matern(d , range = 1,alpha=1/range, smoothness = 0.5, 
+       nu= smoothness, phi=1.0) 
 
 
 `````
