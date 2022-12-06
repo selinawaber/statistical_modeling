@@ -126,5 +126,20 @@ lines(s.new, z.new, lty = 2)
 legend("topright", legend = "Simple kriging predicition", lty = 2)
 
 ````
+```R
+## repeat for different parameters 
+
+plot(transect_df, xlim = c(0, 10))
+new_theta3 <- c(0.1,1,5,10)
+for (i in 1: length(new_theta3)) {
+    Sigma <- exp.cov(h = DIST.MAT, theta2 = theta2, theta3 = new_theta3[i])
+    sigma <- exp.cov(h = new_dist_mat, theta2 = theta2, theta3 = new_theta3[i])
+    sk <- simple_kriging(Sigma, sigma, Z.s)
+    lines(s.new, sk)
+    
+}
+
+
+```
 
 
