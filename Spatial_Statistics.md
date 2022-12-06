@@ -80,6 +80,24 @@ dist.matrix <- function(x, y) abs(outer(x, y, FUN = "-"))
 DIST.MAT <- dist.matrix(data$s, data$s) ## matrix containing all possible
 distances of the locations
 
+#or
+
+DIST.MAT <- matrix(0, nrow = 5, ncol = 5)
+
+dist.matrix <- function(x, y, mat){
+    for (i in 1: length(x)){
+        for (j in 1: length(y)){
+            mat[i, j] <- abs(sqrt((x[j] - y[i])^2))
+
+        }
+    }
+    
+    return(mat)
+}
+s <- transect_df$s
+DIST.MAT <- dist.matrix(s, s, DIST.MAT)
+
+
 ````
 
 ```R
