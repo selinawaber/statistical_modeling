@@ -173,6 +173,54 @@ my_function(x, k)
 
 ```
 
+### Complete Linkage
+
+```R
+mat<-matrix(c(0,3,6,8,3,0,5,9,6,5,0,7,8,9,7,0), nrow=4, ncol=4)
+lable<-c("A", "B", "C", "D")
+
+complete_linkage <- function(mat, label){
+  mat[upper.tri(mat, diag=TRUE)]<-2147483647
+  cand_final=c()
+  while(length(mat)>1){
+    cand<-arrayInd(which.min(mat), dim(mat))
+    cand<-as.numeric(cand)
+    print(mat)
+    print(label[cand])
+    cand_final<-append(cand_final, cand)
+    i<- min(cand)
+    j<- max(cand)
+    # werte überschreiben in zeile/spalte i
+    for (k in 1:dim(mat)[1]){
+      if(i>k){
+        # den wert in der matrix durch die maximale distanz ersetzen
+        mat[i,k]<-max(mat[i,k], mat[j,k]) 
+      }
+      else if(k>i){
+        # trick um den richtigen wert zwischen mat[k,j] und mat[j,k] zu finden
+        # nötig hier da k>j>i sein kann oder j>k>i
+        # der ungültige wert ist immer in der oberen dreiecksmatrix und deshalb grösser
+        tmp <- min(mat[k,j], mat[j,k])
+        # den wert in der matrix durch die maximale distanz ersetzen
+        mat[k,i]<- max(mat[k,i], tmp)
+      }
+    }
+    # zeile/spalte j löschen
+    mat <- mat[-j,-j]
+    
+    # labels anpassen
+    new_label<-paste("[", label[i], label[j], "]", sep="")
+    label[i]<- new_label
+    label<-label[-j]
+  }
+  return(label)
+}
+
+complete_linkage(mat, lable)
+
+
+````
+
 
 
 
