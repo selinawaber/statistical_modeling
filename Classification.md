@@ -145,6 +145,17 @@ rf2 = randomForest(response ~ a + b + c)
 abline(v = 5, col = "blue", lty = 2)
 ```
 
+````R
+require(caret)
+train_ctrl <- trainControl(method = "cv", number = 10)
+class_tree_model <- train(Type ~ . , data = df_3, method = "ctree", trControl = train_ctrl)
+random_forest_model <- train(Type ~ . , data = df_3, method = "cforest", trControl = train_ctrl)
+plot(class_tree_model)
+plot(random_forest_model)
+
+
+`````
+
 
 ### Bagging
 
