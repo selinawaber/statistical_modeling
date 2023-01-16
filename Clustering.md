@@ -77,7 +77,7 @@ my.kmean<-function(x,k){
   #define first cluster assigment of x_i and definde df
   X<-matrix(rep(x,k), ncol=k, byrow=F)
   
-  dist_matrix<-(sweep(X, MARGIN=2, temp_centroids))^2
+  dist_matrix<-(sweep(X, MARGIN=2, tmp_centroids))^2
   clusters<-apply(dist_matrix, MARGIN=1, FUN=which.min)
   tmp_df<-cbind.data.frame(x=x, cluster=clusters)
   
@@ -89,7 +89,7 @@ my.kmean<-function(x,k){
     tmp_centroids_new<-aggregate(x~cluster, data=tmp_df, mean)[,2]
     
     #reassign obs
-    tmp_df$cluster<-apply((sweep(X, MARGIN=2, temp_centroids_new))^2, MARGIN=1, FUN=which.min)
+    tmp_df$cluster<-apply((sweep(X, MARGIN=2, tmp_centroids_new))^2, MARGIN=1, FUN=which.min)
     
     #+1 count
     tmp_count<-tmp_count +1
@@ -99,13 +99,15 @@ my.kmean<-function(x,k){
       break
       
     #check max interations
-    if(tmp_count=1000)
+    if(tmp_count==1000)
       (break)("max iteration reached.")
       
-    tmp_centroids<-temp_centroids_new
+    tmp_centroids<-tmp_centroids_new
   }
 return(tmp_df)
 }
+
+my.kmean(x = c(1, 2, 1, 3, 2, 6, 5, 7, 6, 12), k = 3)
 
 
 ```
