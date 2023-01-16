@@ -70,45 +70,48 @@ table(data.frame( cluster=dd1, data$species)) # confusion matrix
 
 
 ```R
-my.kmean<-function(x,k){
-  #define ranom centroids for the k clusters
-  tmp_centroids<-runif(min=min(x), max=max(x), n=k)
+my.kmean <- function(x, k) {
   
-  #define first cluster assigment of x_i and definde df
-  X<-matrix(rep(x,k), ncol=k, byrow=F)
+  # 1 - define random centroids for the k clusters
+  tmp_centroids <- runif(min = min(x), max = max(x), n = k)
+
+  X <- matrix(rep(x, k), ncol = k, byrow = F)
   
-  dist_matrix<-(sweep(X, MARGIN=2, tmp_centroids))^2
-  clusters<-apply(dist_matrix, MARGIN=1, FUN=which.min)
-  tmp_df<-cbind.data.frame(x=x, cluster=clusters)
+  dist_matrix <- (sweep(X, MARGIN = 2, tmp_centroids))^2
   
-  #iteratively update centroids
-  tmp_count<-0
+  clusters <- apply(dist_matrix, MARGIN = 1, FUN = which.min)
   
-  repeat{
-    #recompute means
-    tmp_centroids_new<-aggregate(x~cluster, data=tmp_df, mean)[,2]
+  tmp_df <- cbind.data.frame(x = x, cluster = clusters)
+  
+  # 3 - iteratively update centroids
+  tmp_count <- 0
+  repeat {
+    # recompute means
+    tmp_centroids_new <- aggregate(x ~ cluster, data = tmp_df, mean)[, 2]
     
-    #reassign obs
-    tmp_df$cluster<-apply((sweep(X, MARGIN=2, tmp_centroids_new))^2, MARGIN=1, FUN=which.min)
+    # reassign obs
+    tmp_df$cluster <- apply((sweep(X, MARGIN = 2, tmp_centroids_new))^2, MARGIN = 1,
+    FUN = which.min)
     
-    #+1 count
-    tmp_count<-tmp_count +1
+    # +1 count
+    tmp_count <- tmp_count + 1
     
-    #check if the distance between old and new centoids is small
-    if(sum(tmp_centroids-tmp_centroids_new)^2< 1e-05)
+    # check if the distance between old and new centroids is small
+    if (sum((tmp_centroids - tmp_centroids_new)^2) < 1e-05)
       break
-      
-    #check max interations
-    if(tmp_count==1000)
+    
+    # check max iterations
+    if (tmp_count == 1000)
       (break)("max iteration reached.")
-      
-    tmp_centroids<-tmp_centroids_new
-  }
-return(tmp_df)
+    
+    tmp_centroids <- tmp_centroids_new
+    }
+  return(tmp_df)
 }
 
-my.kmean(x = c(1, 2, 1, 3, 2, 6, 5, 7, 6, 12), k = 3)
 
+set.seed(1234)
+my.kmean(x = c(1, 2, 1, 3, 2, 6, 5, 7, 6, 12), k = 3)
 
 ```
 
