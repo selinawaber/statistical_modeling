@@ -97,6 +97,16 @@ ct=ctree(response ~., data=data)
 plot(ct)
 ```
 
+### Random Forest
+
+```R
+require(randomForest)
+set.seed(1000)
+rf_analysis <- randomForest(Type ~ ., data = wines_df)
+rf_analysis
+
+```
+
 ### Bagging
 
 Use bootstrapping to create many training sets and for each of them create a new tree. Take the average for the final classification.
