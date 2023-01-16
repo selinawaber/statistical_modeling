@@ -27,6 +27,17 @@ ts_mm <- ts(monthly_max$Speed, start = c(1976, 1), frequency = 12)
 plot(ts_mm, ylab = "Monthly maxima") 
  ````
  
+ A test set, consisting of the first and last five years. The intermediate years are split
+in training and validation (26 and 10 data points)
+
+ ```R
+coal_df <- data.frame(coal = coal, year = year)
+test_df <- coal_df[c(1:5, 45:49), ]
+new_coal_df <- coal_df[6:44, ]
+ 
+ ```
+ 
+ 
 
 ### Clean data
 
