@@ -82,6 +82,9 @@ cut divides the range of x into intervals and codes the values in x according to
 ```R
 data_col <- cut(data$Salary, 3, labels = FALSE)
 pairs(data[, 1:3], col = data_col)
+
+#similar
+ec <- within(ec, SalaryCat <- cut(Salary, breaks = 3))
 ```
 ### replace Infty values with NA
 
