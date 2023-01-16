@@ -21,7 +21,9 @@ biplot(pca)
 
 # Calculate the cumulative variance explained
 cumsum(pca$sdev^2)/n
-##With the method of proportion of variance explained i choose each component until a total of around 0.8 or 80% is reached, this helps to avoid overfitting. The principal component analysis starting with 9 variables suggests to keep the first 4 to explain the most variability of the data. Also, with the scree plot we can clearly see that adding the fifth principal component has a significant drop in variance explained in relative to the fourth feature.
+##With the method of proportion of variance explained i choose each component until a total of around 0.8 or 80% is reached, this helps to avoid overfitting. 
+The principal component analysis starting with 9 variables suggests to keep the first 4 to explain the most variability of the data. 
+Also, with the scree plot we can clearly see that adding the fifth principal component has a significant drop in variance explained in relative to the fourth feature.
 ```
 
 ### When is PCA suitable
