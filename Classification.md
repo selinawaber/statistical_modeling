@@ -108,6 +108,44 @@ rf_analysis
 plot(rt_analysis)
 ```
 
+### Random Forest
+
+Similar to bagging but for each tree we choose a random subsample of the featutres, where k = sqrt(n).
+
+```R
+require(fields)
+require("randomForest")
+
+rf = randomForest(response ~ ., data = train , ntree=50, prox=TRUE)
+plot(rf)
+rf.pred <- predict( rf, newdata=test)
+table(rf.pred, test$species, dnn=c("Predicted Class", "Observed Class"))
+
+
+rt <- ctree( species~., data=train)    # Compare with simple tree
+rt.pred <- predict(rt, newdata=test)
+table(rt.pred, test$species, dnn=c("Predicted Class", "Observed Class"))
+
+
+ct <- cforest( species ~ ., data=train, ntree=50)  # with package partykit
+ct.pred <- predict( ct, newdata=test)
+table(ct.pred, test$species, dnn=c("Predicted Class", "Observed Class"))
+
+#  length( ct$nodes)         # nr of trees in random forest (== ntree=50)
+#  ct$nodes[[11]]         # accessin the 11th tree
+#  ct$nodes[[11]]$split[1:2]   # first split of 11th tree
+#  ct$nodes[[11]]$kids[1:2]    # branches after first split
+#  ct$nodes[[11]]$kids[[2]]$split[1:2] # second split of second branch, etc
+
+
+
+# Optionally repeat rd with only most important features extracted with
+varImpPlot(rf)
+rf2 = randomForest(response ~ a + b + c)
+
+```
+
+
 ### Bagging
 
 Use bootstrapping to create many training sets and for each of them create a new tree. Take the average for the final classification.
@@ -169,42 +207,7 @@ segments( c(-4,final), c(M,M)+1, c(final, 4), c(M,M)+1, col=col, lwd=15)
 
 
 
-### Random Forest
 
-Similar to bagging but for each tree we choose a random subsample of the featutres, where k = sqrt(n).
-
-```R
-require(fields)
-require("randomForest")
-
-rf = randomForest(response ~ ., data = train , ntree=50, prox=TRUE)
-plot(rf)
-rf.pred <- predict( rf, newdata=test)
-table(rf.pred, test$species, dnn=c("Predicted Class", "Observed Class"))
-
-
-rt <- ctree( species~., data=train)    # Compare with simple tree
-rt.pred <- predict(rt, newdata=test)
-table(rt.pred, test$species, dnn=c("Predicted Class", "Observed Class"))
-
-
-ct <- cforest( species ~ ., data=train, ntree=50)  # with package partykit
-ct.pred <- predict( ct, newdata=test)
-table(ct.pred, test$species, dnn=c("Predicted Class", "Observed Class"))
-
-#  length( ct$nodes)         # nr of trees in random forest (== ntree=50)
-#  ct$nodes[[11]]         # accessin the 11th tree
-#  ct$nodes[[11]]$split[1:2]   # first split of 11th tree
-#  ct$nodes[[11]]$kids[1:2]    # branches after first split
-#  ct$nodes[[11]]$kids[[2]]$split[1:2] # second split of second branch, etc
-
-
-
-# Optionally repeat rd with only most important features extracted with
-varImpPlot(rf)
-rf2 = randomForest(response ~ a + b + c)
-
-```
 
 ### linear and quadratic discriminant analysis 
 
