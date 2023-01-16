@@ -192,8 +192,6 @@ year <- c(time(bicoal))
 coal <- as.numeric(bicoal)
 coal_df <- data.frame(coal = coal, year = year)
 
-# divide the matrix into training set 70% and
-# testing 30% respectively with replacement
 sample <- sample(c(TRUE,FALSE), nrow(coal_df), 
                  replace=TRUE, prob=c(0.8,0.2))
   
@@ -203,25 +201,24 @@ train_dataset  <- coal_df[sample, ]
 # creating testing dataset
 test_dataset  <- coal_df[!sample, ]
   
-print("Training Dataset")
-print (train_dataset)
-print("Testing Dataset")
-print (test_dataset)
-
-
 rss <- matrix(NA, ncol = 8, nrow = 100)
 
 for (degree in 1:8) {
   plot(year, coal)
   for (i in 1:100) {
+    sample <- sample(c(TRUE,FALSE), nrow(coal_df), 
+                 replace=TRUE, prob=c(0.8,0.2))
+  # creating training dataset
+  train_dataset  <- coal_df[sample, ]
+  
+  # creating testing dataset
+  test_dataset  <- coal_df[!sample, ]
     out <- lm(coal ~ poly(year, degree), data = train_dataset)
     res_valid <- predict(out, test_dataset)
-    rss[i, degree] <- sum((res_valid - train_dataset$coal)^2)
+    rss[i, degree] <- sum((res_valid - test_dataset$coal)^2)
     lines(train_dataset$year, out$fitted.values, col="blue")
   }
 }
-
-
 
 `````
 
