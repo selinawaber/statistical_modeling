@@ -98,8 +98,8 @@ for (i in 1:R){
 }
 
 par(mfrow = c(1,2))
-hist( l1[,1], main=’’, xlab=quote(widehat(beta[0])), prob=TRUE)
-hist( l1[,2], main=’’, xlab=quote(widehat(beta[1])), prob=TRUE)
+hist( coeff[,1], main=’’, xlab=quote(widehat(beta[0])), prob=TRUE)
+hist( coeff[,2], main=’’, xlab=quote(widehat(beta[1])), prob=TRUE)
 
 ```
 Unsurprisingly, the variability in the estimates increases as we introduce more randomness, by generating our data points every simulation. However, the mean of the estimates is roughly the same.
