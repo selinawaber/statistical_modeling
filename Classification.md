@@ -105,6 +105,7 @@ set.seed(1000)
 rf_analysis <- randomForest(Type ~ ., data = wines_df)
 rf_analysis
 
+plot(rt_analysis)
 ```
 
 ### Bagging
