@@ -144,7 +144,7 @@ varImpPlot(rf)
 rf2 = randomForest(response ~ a + b + c)
 abline(v = 5, col = "blue", lty = 2)
 ```
-
+Apply cross validation to evaluate the percentage of correctly predicted types of wine for each model.
 ````R
 require(caret)
 train_ctrl <- trainControl(method = "cv", number = 10)
