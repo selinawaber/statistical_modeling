@@ -142,7 +142,7 @@ table(ct.pred, test$species, dnn=c("Predicted Class", "Observed Class"))
 # Optionally repeat rd with only most important features extracted with
 varImpPlot(rf)
 rf2 = randomForest(response ~ a + b + c)
-
+abline(v = 5, col = "blue", lty = 2)
 ```
 
 
