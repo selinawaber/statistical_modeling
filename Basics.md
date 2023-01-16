@@ -52,6 +52,7 @@ data$x<-as.factor(data$x)
 
 data.noNA<-na.omit(data)
 
+dat.noNA2<- dat.noNA %>%  filter(!row_number() %in% c(7,24)) # Removes row number 7 and 25 in the original
 ```
 
 ### Create a factor variable for the size of the district and add it as additional variable (with columnname size) to the data set.
