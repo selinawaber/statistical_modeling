@@ -100,6 +100,15 @@ data$x[is.infinite(data$x)]<-NA
  fit2 <- update(fit1, subset= 20:50)
  
  ```
+ 
+ subset only year 2 and class 1 rows
+ 
+ ```R
+ dat <- data[data$year == 2 & data$class == 1, ]
+ dat <- droplevels(dat)
+ # or equivalently
+ subset_dat<-subset(data, class==1 & year==2) #only one class and year 2
+ ````
 
 
 
