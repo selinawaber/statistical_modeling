@@ -4,7 +4,9 @@
 
 Importing things
 ```R
-if (!require('dendextend')) install.packages('dendextend'); library('dendextend')
+if (!require('faraway')) install.packages('faraway'); library('faraway')
+require(faraway) # required!
+data(jsp) # loads the data from the package
 `````
 
 
