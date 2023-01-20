@@ -150,6 +150,22 @@ pairs(data)
 # choosing pairs
 pairs(data[, c(1,3)]) #  1 and 3
 pairs(data[, c(1:3)]) # 1 to 3
+
+
+# Create indicator variable: crime rate above median
+median_cr <- median(boston_data$crim)
+boston_data$crim_median <- as.factor(boston_data$crim > median_cr)
+levels(boston_data$crim_median) <- c("below","above")
+hist(boston_data$crim, breaks = 50, freq = FALSE, main = "Histogram of Crime Rate")
+lines(density(boston_data$crim, from = 0), col = 3)
+abline(v = median_cr, col = 2)
+
+# Scatterplot matrix for a selection of variables
+mycols = c("gray","black")
+pairs(boston_data[, c(1,5,6,7,8,13,14)], gap=0, # selection of variables
+      upper.panel = panel.smooth, col = mycols[boston_data$crim_median], pch = 19, cex = 0.5)
+      
+#The gray points represent the suburbs with a crime rate below average and the black points the suburbs with a crime rate above average. 
 ```
 
 ### Add the line of the predicted probabilities to the plot
