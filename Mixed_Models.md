@@ -35,7 +35,7 @@ and excluding random effects and discuss the differences to the realised scores.
 Hint: Use re.form=NA or re.form=NULL to specify if you want to include or exclude random effects in the prediction.
 
 `````R
-fit2<-lmer(math~socaial + raven + (1|school) , data=dat)
+fit2<-lmer(math~socaial + raven + (1|school) , data=jspr)
 
 predind <- sample(c(1:dim(jspr)[1]), 10)
 predset <- jspr[predind, c("gender", "social", "raven", "school")]
