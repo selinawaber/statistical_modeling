@@ -16,6 +16,9 @@ data.surv<-Surv(time=data$time, event=data$d)
 Kaplan Meier Kurve, essentially a step function which is a 1:1 fit of the data.
 
 ```R
+library("survival")
+library("survminer")
+
 data.fit<- survfit(surv ~ t, data=data)
 
 plot(data.fit, col=c("blue", "red"), xlab="Time since start of treatment", ylab="Cumulative survival probability", main="Kaplan-Meier Plot")

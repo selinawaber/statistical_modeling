@@ -2,6 +2,14 @@
 
 ## Basics
 
+Importing things
+```R
+if (!require('faraway')) install.packages('faraway'); library('faraway')
+require(faraway) # required!
+data(jsp) # loads the data from the package
+`````
+
+
 ### How to clean the dataset
 
 ### Times Series "ts" Object
@@ -24,8 +32,19 @@ data_ts <- ts(data$Price, frequency = 12, start = c(2007, 1))
 monthly_max <- aggregate(Speed ~ Month + Year, data = dataWind_noNA, max)
 plot(Speed ~ Month, data = monthly_max)
 ts_mm <- ts(monthly_max$Speed, start = c(1976, 1), frequency = 12)
-plot(ts_mm, ylab = "Monthly maxima")
+plot(ts_mm, ylab = "Monthly maxima") 
  ````
+ 
+ A test set, consisting of the first and last five years. The intermediate years are split
+in training and validation (26 and 10 data points)
+
+ ```R
+coal_df <- data.frame(coal = coal, year = year)
+test_df <- coal_df[c(1:5, 45:49), ]
+new_coal_df <- coal_df[6:44, ]
+ 
+ ```
+ 
  
 
 ### Clean data
@@ -41,6 +60,7 @@ data$x<-as.factor(data$x)
 
 data.noNA<-na.omit(data)
 
+dat.noNA2<- dat.noNA %>%  filter(!row_number() %in% c(7,24)) # Removes row number 7 and 25 in the original
 ```
 
 ### Create a factor variable for the size of the district and add it as additional variable (with columnname size) to the data set.
@@ -64,6 +84,9 @@ cut divides the range of x into intervals and codes the values in x according to
 ```R
 data_col <- cut(data$Salary, 3, labels = FALSE)
 pairs(data[, 1:3], col = data_col)
+
+#similar
+ec <- within(ec, SalaryCat <- cut(Salary, breaks = 3))
 ```
 ### replace Infty values with NA
 
@@ -77,6 +100,15 @@ data$x[is.infinite(data$x)]<-NA
  fit2 <- update(fit1, subset= 20:50)
  
  ```
+ 
+ subset only year 2 and class 1 rows
+ 
+ ```R
+ dat <- data[data$year == 2 & data$class == 1, ]
+ dat <- droplevels(dat)
+ # or equivalently
+ subset_dat<-subset(data, class==1 & year==2) #only one class and year 2
+ ````
 
 
 
@@ -118,6 +150,22 @@ pairs(data)
 # choosing pairs
 pairs(data[, c(1,3)]) #  1 and 3
 pairs(data[, c(1:3)]) # 1 to 3
+
+
+# Create indicator variable: crime rate above median
+median_cr <- median(boston_data$crim)
+boston_data$crim_median <- as.factor(boston_data$crim > median_cr)
+levels(boston_data$crim_median) <- c("below","above")
+hist(boston_data$crim, breaks = 50, freq = FALSE, main = "Histogram of Crime Rate")
+lines(density(boston_data$crim, from = 0), col = 3)
+abline(v = median_cr, col = 2)
+
+# Scatterplot matrix for a selection of variables
+mycols = c("gray","black")
+pairs(boston_data[, c(1,5,6,7,8,13,14)], gap=0, # selection of variables
+      upper.panel = panel.smooth, col = mycols[boston_data$crim_median], pch = 19, cex = 0.5)
+      
+#The gray points represent the suburbs with a crime rate below average and the black points the suburbs with a crime rate above average. 
 ```
 
 ### Add the line of the predicted probabilities to the plot

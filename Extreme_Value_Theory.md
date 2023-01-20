@@ -12,6 +12,15 @@ require(extRemes)
 gevfit = fevd(data)
 summary(gevfit)
 ````
+```R
+require(extRemes)
+
+gevfit <- fevd(maximum$Speed, period.basis = "month")
+summary(gevfit, silent = TRUE)
+ci(gevfit, type = "parameter")
+````
+
+
 
 Where the shape will define the following distributions:
 - bigger than 0: Frechet
@@ -40,3 +49,27 @@ gevfit = fevd(data, threeshold = 10)
 ### Threshold Selection for Modeling Peaks over thresholds
 
 Mean residual life plot:
+
+```R
+require(evd)
+
+mrlplot(dataWind_noNA$Speed)
+```
+```R
+threshrange.plot(dataWind_noNA$Speed, r = c(10, 22), nint = 15)
+gpdfit <- fevd(dataWind_noNA$Speed, threshold = 19, type = "GP", time.units = "days")
+
+ci(gpdfit, type = "parameter")
+
+plot(gpdfit, type = "qq", main = "")
+plot(gpdfit, type = "prob", main = "")
+
+```
+
+
+```R
+# return level for return period of 50 years of the gev model (3)
+ci(gevfit, type = "return.level", return.period = 50 * 12)
+# return level for return period of 50 years of the gpd model (5)
+ci(gpdfit, type = "return.level", return.period = 50)
+```

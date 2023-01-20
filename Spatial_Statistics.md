@@ -14,7 +14,9 @@ Exponential: phi* exp( -d/range)
 ```R
 require(fields)
 
-Exponential(d, range = 1, alpha = 1/range, phi = 1)
+Exponential(d, range = 1, alpha = 1/range, phi=1.0,theta = NULL)
+Matern(d , range = 1,alpha=1/range, smoothness = 0.5, 
+       nu= smoothness, phi=1.0) 
 
 
 `````
@@ -60,7 +62,84 @@ A Nugget effect model takes the average over all other points as estime, if the 
 
 
 
+````R
+## function that impelements the expoential covariance function
+exp.cov <- function(h, theta2, theta3) {
+theta2 * exp(-h/theta3)
+}
+h <- seq(0, 4, 0.01)
+theta2 <- 3
+theta3 <- 1
+y <- exp.cov(h = h, theta2 = theta2, theta3 = theta3)
+plot(h, y, type = "l", ylab = "exp.cov(h)")
+
+```````
+```R
+#function that returns pairwiese (Euclidean) distances between each elemts of vectors x and y
+dist.matrix <- function(x, y) abs(outer(x, y, FUN = "-"))
+DIST.MAT <- dist.matrix(data$s, data$s) ## matrix containing all possible
+distances of the locations
+
+#or
+
+DIST.MAT <- matrix(0, nrow = 5, ncol = 5)
+
+dist.matrix <- function(x, y, mat){
+    for (i in 1: length(x)){
+        for (j in 1: length(y)){
+            mat[i, j] <- abs(sqrt((x[j] - y[i])^2))
+
+        }
+    }
+    
+    return(mat)
+}
+s <- transect_df$s
+DIST.MAT <- dist.matrix(s, s, DIST.MAT)
 
 
+````
+
+```R
+## Covariance Matrix
+(SIGMA <- exp.cov(h = DIST.MAT, theta2 = theta2, theta3 = theta3))
+````
+
+````R
+## new locations
+s.new <- seq(0, 10, 0.001) 
+dist.mat <- dist.matrix(data$s, s.new)
+dim(dist.mat) # for each of the old locations, we have all the distances for the new locations
+sigma <- exp.cov(h = dist.mat, theta2 = theta2, theta3 = theta3)
+````
+
+```R
+## kriging prediction for the locations snew. 
+simple.kriging <- function(SIGMA, sigma, Z) {
+lambda <- t(sigma) %*% solve(SIGMA)
+c(lambda %*% Z)
+}
+
+z.new <- simple.kriging(SIGMA, sigma, data$Z.s)
+plot(data, xlim = c(0, 10), ylab = "Z(s)")
+lines(s.new, z.new, lty = 2)
+legend("topright", legend = "Simple kriging predicition", lty = 2)
+
+````
+```R
+## repeat for different parameters 
+
+plot(transect_df, xlim = c(0, 10))
+new_theta3 <- c(0.1,1,5,10)
+for (i in 1: length(new_theta3)) {
+    Sigma <- exp.cov(h = DIST.MAT, theta2 = theta2, theta3 = new_theta3[i])
+    sigma <- exp.cov(h = new_dist_mat, theta2 = theta2, theta3 = new_theta3[i])
+    sk <- simple_kriging(Sigma, sigma, Z.s)
+    lines(s.new, sk)
+    
+}
+
+
+```
 
 

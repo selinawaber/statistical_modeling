@@ -98,8 +98,8 @@ for (i in 1:R){
 }
 
 par(mfrow = c(1,2))
-hist( l1[,1], main=’’, xlab=quote(widehat(beta[0])), prob=TRUE)
-hist( l1[,2], main=’’, xlab=quote(widehat(beta[1])), prob=TRUE)
+hist( coeff[,1], main=’’, xlab=quote(widehat(beta[0])), prob=TRUE)
+hist( coeff[,2], main=’’, xlab=quote(widehat(beta[1])), prob=TRUE)
 
 ```
 Unsurprisingly, the variability in the estimates increases as we introduce more randomness, by generating our data points every simulation. However, the mean of the estimates is roughly the same.
@@ -174,6 +174,53 @@ Based on the rss criteria, a model with a polynomial degree of 7 would be the �
 
 
 ![Exercise 1 Aufgabe 2b](Images/00002f.png?raw=true "Exercise 1 Aufgabe 2b")
+
+
+### Test and Training Set of Times Series data
+
+````R
+library(fma)
+require(fma)
+
+bicoal
+
+tsdisplay(bicoal)
+
+str(bicoal, strict.width = "cut")
+
+year <- c(time(bicoal))
+coal <- as.numeric(bicoal)
+coal_df <- data.frame(coal = coal, year = year)
+
+sample <- sample(c(TRUE,FALSE), nrow(coal_df), 
+                 replace=TRUE, prob=c(0.8,0.2))
+  
+# creating training dataset
+train_dataset  <- coal_df[sample, ]
+  
+# creating testing dataset
+test_dataset  <- coal_df[!sample, ]
+  
+rss <- matrix(NA, ncol = 8, nrow = 100)
+
+for (degree in 1:8) {
+  plot(year, coal)
+  for (i in 1:100) {
+    sample <- sample(c(TRUE,FALSE), nrow(coal_df), 
+                 replace=TRUE, prob=c(0.8,0.2))
+  # creating training dataset
+  train_dataset  <- coal_df[sample, ]
+  
+  # creating testing dataset
+  test_dataset  <- coal_df[!sample, ]
+    out <- lm(coal ~ poly(year, degree), data = train_dataset)
+    res_valid <- predict(out, test_dataset)
+    rss[i, degree] <- sum((res_valid - test_dataset$coal)^2)
+    lines(train_dataset$year, out$fitted.values, col="blue")
+  }
+}
+
+`````
 
 
 ### Empirical density of Variance with underlying Gaussian distirbution

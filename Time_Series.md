@@ -153,3 +153,18 @@ summary(res)
 
 hist(res, breaks = 25, main = "Number of changes")
 ````
+### Bootstrap
+
+```R
+a1 <- arima( resid(lm2), order=c(2,0,0))
+th <- coef(a1)[1:2]
+
+N <- 200
+bootsam <- array(0, c(N,2))
+res <- a1$resid[-c(1:2)]
+for (i in 1:N) {
+  ab <- arima.sim(n=length(res), list(ar=th), innov=sample(res))
+  bootsam[i,] <- ar( ab, order=2, aic=F)$ar
+  }
+
+````
