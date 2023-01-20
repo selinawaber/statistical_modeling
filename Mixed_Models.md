@@ -10,6 +10,7 @@ lmer(response ~ pred1 + (1 | pred2) , data=data)
 # For longtidual data, where x is for example time and pred2 is the id of subjects for which we have multiple datapoints over time
 lmer(response ~ pred1 + (x | pred2) , data=data)
 
+## then ANOVA to find the best model
 ```
 
 # Longitudinal Data and Ploting
