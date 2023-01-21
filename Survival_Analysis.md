@@ -5,6 +5,7 @@
 ### Creating Survival Object
 
 ```R
+library(survival)
 data$treat<-factor(data$treat)
 data.surv<-Surv(time=data$time, event=data$d)
 ````
