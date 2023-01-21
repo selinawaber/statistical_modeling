@@ -73,3 +73,15 @@ ci(gevfit, type = "return.level", return.period = 50 * 12)
 # return level for return period of 50 years of the gpd model (5)
 ci(gpdfit, type = "return.level", return.period = 50)
 ```
+
+### Plot maximum monthly wind speed
+
+````R
+monthly_max <- aggregate(Speed ~ Month + Year, data = dataWind_noNA, max)
+plot(Speed ~ Month, data = monthly_max)
+# time series
+ts_mm <- ts(monthly_max$Speed, start = c(1976, 1), frequency = 12)
+plot(ts_mm, ylab = "Monthly maxima")
+
+
+````
