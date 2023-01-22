@@ -8,7 +8,21 @@ if (!require('faraway')) install.packages('faraway'); library('faraway')
 require(faraway) # required!
 data(jsp) # loads the data from the package
 `````
+### Data Partition
 
+```R
+sample <- sample(c(TRUE, FALSE), nrow(data), replace=TRUE, prob=c(0.7,0.3))
+train <- data[sample, ]
+test <- data[!sample, ]  
+
+require(caret)
+#split into training (80%) and testing set (20%)
+parts = createDataPartition(data$medv, p = .8, list = F)
+train = data[parts, ]
+test = data[-parts, ]
+
+
+````
 
 ### How to clean the dataset
 
