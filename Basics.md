@@ -77,6 +77,21 @@ data.noNA<-na.omit(data)
 dat.noNA2<- dat.noNA %>%  filter(!row_number() %in% c(7,24)) # Removes row number 7 and 25 in the original
 ```
 
+
+### Make a dataframe
+Make a data frame with columns named x1, x2 and label, which
+will have the first coordinate of your data in column x1, the second coordinate of your data in column x2,
+and 1 as label.
+
+```R
+sim_1 <- rmvnorm(n = 100,mean = c(0,1),sigma = matrix(c(2,2,2,4),ncol=2,byrow = T))
+
+df_1 <- cbind.data.frame(sim_1,’label’=rep(1,dim(sim_1)[1]))
+colnames(df_1) <- c(’x1’,’x2’,’label’)
+
+```
+
+
 ### Create a factor variable for the size of the district and add it as additional variable (with columnname size) to the data set.
 
 ```R
