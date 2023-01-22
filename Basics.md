@@ -128,7 +128,7 @@ data_long$dish <- factor(data_long$dish)
 require(lattice)
 plot1 <- xyplot(n.termites ~ day | dose, group = dish, data = term, type = "l")
 print(plot1)
-
+print(bwplot(~n.termites | dose, data = term))
 `````
 
 
