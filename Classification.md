@@ -178,42 +178,25 @@ diag(conf.mat) / colSums(conf.mat)        # sensitivity for each class
 
 Similar to bagging but samples are associated with a weight which corresponds to the amount of missclassifications, with this the training will focus on hard cases.
 
-### Figure/R-Code:
-### Manual implementation of a boosting algorithm.
+### Confusion Matrix
+
 
 ```R
-set.seed(14)
-n1 <- 12      # group sizes
-n2 <- 12
-M <- 7       # number of iterations
-tmp <- rbind( WC=0, err=numeric(M), a=0)
-dat <- data.frame( g=rep(0:1, c(n1,n2)),y=c(rnorm(n1, 0), rnorm(n2, 1.5)))
-n <- n1 + n2  # total number of observations
-plot( dat$y, rep(0, n), col=dat$g+1, ylim=c(0, M+1), pch=19,
-      ylab='m (1,...,M)', xlab='x')
-col <- c(rgb(0,0,0,.2), rgb(1,0,0,.3))
-w <- rep(1/n,n)  # weights, will be adapted
-WC <- function( dat, w)  # weak classifier
-  (weighted.mean( dat$y[dat$g==0], w[dat$g==0]) + 
-              weighted.mean(dat$y[dat$g==1], w[dat$g==1]))/2
-for (i in 1:M) {
-  sel <- sample(n, .8*n)           # selector for training dataset
-  WCout <- WC(dat[sel,], w[sel])   # weak classifier. 0 if x < WCout
-  tmp["WC",i] <- WCout
-  wrong <- as.numeric( dat$g !=  (WCout < dat$y ))   # wrongly classified
-  tmp["err",i] <- sum(w * wrong)/sum(w)              # error measure 2.
-  tmp["a",i] <- log( (1-tmp["err",i])/tmp["err",i] ) # update weight 3.
-  w <- w * exp(tmp["a",i]* wrong)        # update weights       
-  w <- w/sum(w)                          # normalize weights
-  segments( c(-4,WCout), c(i,i), c(WCout, 4), c(i,i), col=col, lwd=10)
-  points( dat$y[sel], rep(i, .8*n), cex=exp(w[sel]*n)/3, col=dat$g[sel]+1)
-}
-tmp                           # show thresholds, errors and update-weights
-x <- seq(0, to=2, l=50)
-finaltmp <-  colSums( outer(tmp["WC",], x, "<") * tmp["a",]) >
-           colSums( outer(tmp["WC",], x, ">") * tmp["a",]) 
-print( final<- x[which.max(finaltmp)])    # final threshold
-segments( c(-4,final), c(M,M)+1, c(final, 4), c(M,M)+1, col=col, lwd=15)
+table_lda <- table(data$label,predict(lda,data)$class)
+table_lda
+
+sum(diag(table_lda))/sum(table_lda)
+
+table_ctree <- table(data$label,predict(ctree1,data[,c(1,2)]))
+table_ctree
+
+sum(diag(table_ctree))/sum(table_ctree)
+
+table_glm <- table(data$label_glm, predict.glm(model_glm, data, type = ’response’) > 0.5) #table_glm
+table_glm
+
+sum(diag(table_glm))/sum(table_glm)
+
 ```
 
 
