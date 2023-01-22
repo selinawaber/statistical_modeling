@@ -265,9 +265,24 @@ lines( density(sigma2s))
 ```
 
 ### Cross-Validation
+Calculate “manually” a cross-validation based on smoothing splines.
 
 ```R
-#???????????????????
+ln <- 50
+output <- array(NA, c(ln, 4))
+sparseq <- seq(0.1, to = 1, l = ln)
+for (i in 1:ln) {
+si <- with(flies.noNA, smooth.spline(day, mort.rate, spar = sparseq[i], cv = TRUE))
+output[i, ] <- with(si, c(lambda, cv.crit, df, spar = spar))
+}
+colnames(output) <- c("lambda", "CV", "d.f.", "spar")
+min.value <- output[which(min(output[, 2]) == output[, 2]), ]
+par(mfrow = c(1, 2))
+plot(output[, 1], output[, 2], type = "l")
+abline(v = min.value[1])
+plot(flies[, c(1, 3)])
+with(flies.noNA, lines(smooth.spline(day, mort.rate, spar = min.value["spar"],
+cv = TRUE), col = 2))
 ```
 
 ### Bootstrap
