@@ -38,6 +38,8 @@ m5 <- with(data.noNA, smooth.spline(data$x, data$z, spar = 0.5))
 Use cross-validation to find an optimal bandwidth for the kernel approach
 
 ```R
+require(sm)
+
 cv <- with(data , hcv(x, y, display = "line", ngrid = 50))
 abline(v = cv, col = "darkgreen")
 plot(data[, c(1, 3)])
