@@ -14,8 +14,9 @@ The discrimination line is at the point (in 2D) with the same densities.
 
 ```R
 library(MASS)
-
+data$response<- factor(data$response)
 lda = lda(response ~ predictor1 + predictor2, data = data)
+lda
 
 ```
 
