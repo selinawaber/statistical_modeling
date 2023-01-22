@@ -125,6 +125,10 @@ dimnames(data_long)[[1]] <- seq(dimnames(data_long)[[1]])
 data_long$dose <- factor(data_long$dose)
 data_long$dish <- factor(data_long$dish)
 
+require(lattice)
+plot1 <- xyplot(n.termites ~ day | dose, group = dish, data = term, type = "l")
+print(plot1)
+
 `````
 
 
