@@ -11,6 +11,10 @@ lmer(response ~ pred1 + (1 | pred2) , data=data)
 lmer(response ~ pred1 + (x | pred2) , data=data)
 
 ## then ANOVA to find the best model
+lmre1<-update(lmre1, REML=FALSE)
+
+anova(lmre1, lmre2)
+
 ```
 
 # Longitudinal Data and Ploting
