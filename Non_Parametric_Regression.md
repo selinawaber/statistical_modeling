@@ -16,8 +16,12 @@ m3 <- with(data, ksmooth(x, y, kernel = "box", bandwidth = 15))
 Often better at boundaries. Kernel approach cannot correctly fit a line.
 
 ```R
-lowess(x, y, f = 0.3, iter = 3, delta = 0)
-loess(x~y, span = 0.3, degree = 1, family = "symmetric", iterations = 4, surface = "direct")
+m1<-lowess(x, y, f = 0.3, iter = 3, delta = 0)
+m2<-loess(x~y, span = 0.3, degree = 1, family = "symmetric", iterations = 4, surface = "direct")
+
+with(data, plot(y,x))
+lines(m1)
+lines(m2)
 
 ````
 
