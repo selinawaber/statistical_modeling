@@ -34,3 +34,13 @@ plot(x, ((pl$fit)/(pp$fit)), type = "l", xlab = "dose", ylab = "Ratio")
 abline(h = 1, lty = 2)
 grid()
 ````
+
+### Build 0/1 response
+
+````R
+df_final$label_glm <- factor(ifelse(df_final$label == 1,1,0))
+
+model_glm <- glm(label_glm ~ x1 + x2 ,family = binomial(),data = df_final)
+model_glm
+
+`````
