@@ -32,3 +32,16 @@ Similar to local polynomials but tries to fit polynomial for each point seperatl
 m5 <- with(data.noNA, smooth.spline(data$x, data$z, spar = 0.5))
 
 ````
+
+### Cross-validatory choice of smoothing parameter
+
+Use cross-validation to find an optimal bandwidth for the kernel approach
+
+```R
+cv <- with(data , hcv(x, y, display = "line", ngrid = 50))
+abline(v = cv, col = "darkgreen")
+plot(data[, c(1, 3)])
+tt <- with(data, sm.regression(x,y, h = cv, add = T, col = "darkgreen"))
+
+
+`````
